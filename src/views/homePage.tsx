@@ -2,17 +2,34 @@ import React from 'react';
 import SearchBox from '../components/SearchBox';
 import Results from '../components/Results';
 import ErrorBoundary from '../components/ErrorBoundary';
-import PokemonApiResponse from '../utils/interfaces/pokemonApiResponse';
+import {
+  PokemonApiResponse,
+  Pokemon,
+  PokemonList,
+  pokemonListResponse,
+} from '../utils/interfaces/pokemonApiResponse';
 
 export default class HomePage extends React.Component<
   object,
-  { results: PokemonApiResponse[]; isLoading: boolean; errorMessage: string }
+  {
+    results: PokemonList | Pokemon;
+    isLoading: boolean;
+    errorMessage: string;
+  }
 > {
   state = {
-    results: [],
+    // Set initial state to empty list of pokemon
+    results: pokemonListResponse,
     isLoading: false,
     errorMessage: '',
   };
+
+  // Load pokemon list when component mounts
+  componentDidMount(): void {
+    this.fetchDataFromAPI('').catch((error: unknown) => {
+      console.error('API Call failed', error);
+    });
+  }
 
   // Update the query state when recieved from the SearchBox component
   onSearch = (query: string) => {
@@ -27,8 +44,7 @@ export default class HomePage extends React.Component<
     // Set state to loading and reset error message
     this.setState({ isLoading: true, errorMessage: '' });
 
-    const pokemonLimit = 10;
-    const url = `https://pokeapi.co/api/v2/pokemon/${query}?limit=${String(pokemonLimit)}`;
+    const url = `https://pokeapi.co/api/v2/pokemon/${query}`;
 
     try {
       const response = await fetch(url);
@@ -38,8 +54,12 @@ export default class HomePage extends React.Component<
         throw new Error('Pokemon not found, please try again!');
       }
 
-      const data = (await response.json()) as PokemonApiResponse[];
-      this.setState({ results: data, isLoading: false });
+      const data = (await response.json()) as PokemonApiResponse;
+
+      // Set results type based on query, if query is empty, set to PokemonList, else set to Pokemon
+      this.setState({
+        results: query ? (data as Pokemon) : (data as PokemonList),
+      });
     } catch (error: unknown) {
       console.error(error);
       // Checks if error is an instance of Error, if not, sets a generic error message
@@ -52,11 +72,13 @@ export default class HomePage extends React.Component<
           errorMessage: 'An unknown error occurred',
         });
       }
-      // Reset results and loading state
+      // Reset results state
       this.setState({
-        results: [],
-        isLoading: false,
+        results: pokemonListResponse,
       });
+    } finally {
+      // Reset loading state
+      this.setState({ isLoading: false });
     }
   };
 
