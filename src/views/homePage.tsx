@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBox from '../components/SearchBox';
 import Results from '../components/Results';
 import ErrorBoundary from '../components/ErrorBoundary';
+import ErrorButton from '../components/ErrorButton';
 import {
   PokemonApiResponse,
   Pokemon,
@@ -49,7 +50,7 @@ export default class HomePage extends React.Component<
     try {
       const response = await fetch(url);
 
-      // If pokemon not found, throw an error
+      // If pokemon not found, throw an error in catch
       if (!response.ok) {
         throw new Error('Pokemon not found, please try again!');
       }
@@ -91,6 +92,7 @@ export default class HomePage extends React.Component<
           isLoading={this.state.isLoading}
           errorMessage={this.state.errorMessage}
         ></Results>
+        <ErrorButton></ErrorButton>
       </ErrorBoundary>
     );
   }
