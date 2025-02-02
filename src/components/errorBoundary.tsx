@@ -25,8 +25,13 @@ export default class ErrorBoundary extends React.Component<
 
   render(): ReactNode {
     if (this.state.hasError) {
-      //TODO: Add a custom error page
-      return <h1>Something went wrong.</h1>;
+      return (
+        <div className="error-message">
+          <h1>Something went wrong.</h1>
+          <h2>Check console to find out more.</h2>
+          <h2>Please reload page to try again.</h2>
+        </div>
+      );
     }
 
     return this.props.children;

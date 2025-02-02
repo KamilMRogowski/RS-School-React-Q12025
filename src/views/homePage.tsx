@@ -27,10 +27,12 @@ export default class HomePage extends React.Component<
 
   // Load last pokemon search from LS or pokemon list when component mounts
   componentDidMount(): void {
-    const localStorageKeys = Object.keys(localStorage);
-    const lastSearch = localStorageKeys[localStorageKeys.length - 1];
+    const lastSearch: string | null = localStorage.getItem('lastSearch');
+    if (lastSearch) {
+      this.setState({ results: JSON.parse(lastSearch) as Pokemon });
+    }
     // If there is no last search, fetch the pokemon list
-    if (!this.checkLocalStorage(lastSearch)) {
+    if (!this.checkLocalStorage('lastSearch')) {
       this.fetchDataFromAPI('').catch((error: unknown) => {
         console.error('API Call failed', error);
       });
@@ -51,6 +53,7 @@ export default class HomePage extends React.Component<
     if (cachedData) {
       console.log('Data fetched from cache');
       this.setState({ results: JSON.parse(cachedData) as Pokemon });
+      localStorage.setItem('lastSearch', cachedData);
       return true;
     }
     return false;
@@ -83,8 +86,10 @@ export default class HomePage extends React.Component<
       this.setState({
         results: query ? (data as Pokemon) : (data as PokemonList),
       });
-      // Cache data in local storage
+      // Cache data in local storage, also as a last item in the list
       localStorage.setItem(query, JSON.stringify(data));
+      localStorage.setItem('lastSearch', JSON.stringify(data));
+      console.log('Saved to local storage', query);
     } catch (error: unknown) {
       console.error(error);
       // Checks if error is an instance of Error, if not, sets a generic error message

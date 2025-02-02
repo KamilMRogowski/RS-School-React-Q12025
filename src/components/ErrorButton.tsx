@@ -12,6 +12,10 @@ export default class ErrorButton extends React.Component {
       throw new Error('Error thrown from ErrorButton component');
     }
 
-    return <button onClick={this.throwError}>ERRORBUTTON</button>;
+    return (
+      <button className="error-button" onClick={this.throwError}>
+        ERROR BUTTON
+      </button>
+    );
   }
 }

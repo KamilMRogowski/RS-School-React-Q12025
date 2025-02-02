@@ -26,7 +26,7 @@ export default class SearchBox extends React.Component<
 
   render() {
     return (
-      <div>
+      <div className="search-container">
         <input
           type="text"
           placeholder="Search your favorite pokemon"
