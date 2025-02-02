@@ -19,9 +19,9 @@ export default class SearchBox extends React.Component<
     this.setState({ query: event.target.value });
   };
 
-  // Trigger the onSearch callback passed as a prop from parent with current query state
+  // Trigger the onSearch callback passed as a prop from parent with current query state, trim trailing spaces
   handleClick = () => {
-    this.props.onSearch(this.state.query);
+    this.props.onSearch(this.state.query.trim());
   };
 
   render() {

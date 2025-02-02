@@ -25,11 +25,16 @@ export default class HomePage extends React.Component<
     errorMessage: '',
   };
 
-  // Load pokemon list when component mounts
+  // Load last pokemon search from LS or pokemon list when component mounts
   componentDidMount(): void {
-    this.fetchDataFromAPI('').catch((error: unknown) => {
-      console.error('API Call failed', error);
-    });
+    const localStorageKeys = Object.keys(localStorage);
+    const lastSearch = localStorageKeys[localStorageKeys.length - 1];
+    // If there is no last search, fetch the pokemon list
+    if (!this.checkLocalStorage(lastSearch)) {
+      this.fetchDataFromAPI('').catch((error: unknown) => {
+        console.error('API Call failed', error);
+      });
+    }
   }
 
   // Update the query state when recieved from the SearchBox component
@@ -40,12 +45,29 @@ export default class HomePage extends React.Component<
     });
   };
 
+  // Check if data is cached in local storage and update results state
+  checkLocalStorage = (query: string): boolean => {
+    const cachedData: string | null = localStorage.getItem(query);
+    if (cachedData) {
+      console.log('Data fetched from cache');
+      this.setState({ results: JSON.parse(cachedData) as Pokemon });
+      return true;
+    }
+    return false;
+  };
+
   // Fetch data from the pokeapi.co API and update the results state
   fetchDataFromAPI = async (query: string) => {
     // Set state to loading and reset error message
     this.setState({ isLoading: true, errorMessage: '' });
 
     const url = `https://pokeapi.co/api/v2/pokemon/${query}`;
+
+    // If query is not empty and data is cached, set loading state to false and return
+    if (query && this.checkLocalStorage(query)) {
+      this.setState({ isLoading: false });
+      return;
+    }
 
     try {
       const response = await fetch(url);
@@ -61,6 +83,8 @@ export default class HomePage extends React.Component<
       this.setState({
         results: query ? (data as Pokemon) : (data as PokemonList),
       });
+      // Cache data in local storage
+      localStorage.setItem(query, JSON.stringify(data));
     } catch (error: unknown) {
       console.error(error);
       // Checks if error is an instance of Error, if not, sets a generic error message
