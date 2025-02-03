@@ -23,6 +23,10 @@ export default class ErrorBoundary extends React.Component<
     console.error('Error occured:', error, errorInfo);
   }
 
+  handleClick = () => {
+    window.location.reload();
+  };
+
   render(): ReactNode {
     if (this.state.hasError) {
       return (
@@ -30,6 +34,7 @@ export default class ErrorBoundary extends React.Component<
           <h1>Something went wrong.</h1>
           <h2>Check console to find out more.</h2>
           <h2>Please reload page to try again.</h2>
+          <button onClick={this.handleClick}>Reload page</button>
         </div>
       );
     }

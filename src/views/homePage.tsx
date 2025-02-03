@@ -9,11 +9,12 @@ import {
   PokemonList,
   pokemonListResponse,
 } from '../utils/interfaces/pokemonApiResponse';
+import fetchPokemonFromAPI from '../services/fetchPokemonFromAPI';
 
 export default class HomePage extends React.Component<
   object,
   {
-    results: PokemonList | Pokemon;
+    results: PokemonApiResponse;
     isLoading: boolean;
     errorMessage: string;
     searchQuery: string;
@@ -62,44 +63,25 @@ export default class HomePage extends React.Component<
   fetchDataFromAPI = async (query: string) => {
     this.setState({ isLoading: true, errorMessage: '' });
 
-    const url = `https://pokeapi.co/api/v2/pokemon/${query}`;
-
     if (query && this.checkLocalStorage(query)) {
       this.setState({ isLoading: false });
       return;
     }
 
-    try {
-      const response = await fetch(url);
+    const data = await fetchPokemonFromAPI(query);
 
-      if (!response.ok) {
-        throw new Error('Pokemon not found, please try again!');
-      }
-
-      const data = (await response.json()) as PokemonApiResponse;
-
+    if (typeof data === 'string') {
+      this.setState({ errorMessage: data });
+      console.log(this.state.errorMessage);
+    } else {
       this.setState({
         results: query ? (data as Pokemon) : (data as PokemonList),
       });
       localStorage.setItem(query, JSON.stringify(data));
       localStorage.setItem('lastSearch', JSON.stringify(data));
-    } catch (error: unknown) {
-      console.error(error);
-      if (error instanceof Error) {
-        this.setState({
-          errorMessage: error.message,
-        });
-      } else {
-        this.setState({
-          errorMessage: 'An unknown error occurred',
-        });
-      }
-      this.setState({
-        results: pokemonListResponse,
-      });
-    } finally {
-      this.setState({ isLoading: false });
     }
+
+    this.setState({ isLoading: false });
   };
 
   render() {
