@@ -5,19 +5,19 @@ import PokemonList from './PokemonList';
 
 type ResultsProps = {
   results: PokemonApiResponse;
-  isLoading: boolean;
+  loading: boolean;
   errorMessage: string;
 };
 
 export default function Results({
   results,
-  isLoading,
+  loading,
   errorMessage,
 }: ResultsProps) {
   return (
     <div className="results-container">
-      <div className="loader">{isLoading && <Loader />}</div>
-      {!errorMessage && !isLoading && <PokemonCard results={results} />}
+      <div className="loader">{loading && <Loader />}</div>
+      {!errorMessage && !loading && <PokemonCard results={results} />}
       {!errorMessage && 'results' in results && (
         <PokemonList results={results} />
       )}
