@@ -1,47 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 type searchBoxProps = {
   onSearch: (query: string) => void;
   searchQuery: string;
 };
-type searchBoxState = { query: string };
 
-export default class SearchBox extends React.Component<
-  searchBoxProps,
-  searchBoxState
-> {
-  constructor(props: searchBoxProps) {
-    super(props);
-    this.state = {
-      query: props.searchQuery || '',
-    };
-  }
+export default function SearchBox({ onSearch, searchQuery }: searchBoxProps) {
+  const [query, setQuery] = useState(searchQuery || '');
 
-  componentDidUpdate(prevProps: searchBoxProps) {
-    if (prevProps.searchQuery !== this.props.searchQuery) {
-      this.setState({ query: this.props.searchQuery });
-    }
-  }
+  useEffect(() => {
+    setQuery(searchQuery);
+  }, [searchQuery]);
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ query: event.target.value });
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
   };
 
-  handleClick = () => {
-    this.props.onSearch(this.state.query.trim());
+  const handleClick = () => {
+    onSearch(query.trim());
   };
 
-  render() {
-    return (
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search your favorite pokemon"
-          onChange={this.handleChange}
-          value={this.state.query}
-        />
-        <button onClick={this.handleClick}>Search</button>
-      </div>
-    );
-  }
+  return (
+    <div className="search-container">
+      <input
+        type="text"
+        placeholder="Search your favorite pokemon"
+        onChange={handleChange}
+        value={query}
+      />
+      <button onClick={handleClick}>Search</button>
+    </div>
+  );
 }
