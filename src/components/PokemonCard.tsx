@@ -18,6 +18,12 @@ export default function PokemonCard({ results }: PokemonListProps) {
           <div className="pokemon-stats">
             <h3>Height: {results.height * 10} cm</h3>
             <h3>Weight: {results.weight} hectograms</h3>
+            <h3>
+              Types:
+              {results.types.map((type) => (
+                <span key={type.slot}> {type.type.name}</span>
+              ))}
+            </h3>
           </div>
         </div>
       )}

@@ -26,7 +26,13 @@ export interface Pokemon {
   species: object;
   sprites: PokemonSprites;
   stats: [];
-  types: [];
+  types: {
+    slot: number;
+    type: {
+      name: string;
+      url: string;
+    };
+  }[];
   weight: number;
 }
 

@@ -18,7 +18,7 @@ export default function Results({
     <div className="results-container">
       <div className="loader">{loading && <Loader />}</div>
       {!errorMessage && !loading && <PokemonCard results={results} />}
-      {!errorMessage && 'results' in results && (
+      {!errorMessage && !loading && 'results' in results && (
         <PokemonList results={results} />
       )}
 
