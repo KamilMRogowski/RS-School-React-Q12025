@@ -1,13 +1,13 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router';
 import './index.css';
 import App from './App.tsx';
-import ErrorBoundary from './components/ErrorBoundary.tsx';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <ErrorBoundary>
+    <BrowserRouter basename="/RS-School-React-Q12025">
       <App />
-    </ErrorBoundary>
+    </BrowserRouter>
   </StrictMode>
 );

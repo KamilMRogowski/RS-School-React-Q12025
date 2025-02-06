@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import {
-  PokemonApiResponse,
+  Pokemon,
+  PokemonList,
   pokemonListResponse,
 } from '../utils/interfaces/pokemonApiResponse';
 
 export default function useFetchPokemonFromAPI(url: string, query: string) {
-  const [data, setData] = useState<PokemonApiResponse>(pokemonListResponse);
+  const [data, setData] = useState<Pokemon | PokemonList>(pokemonListResponse);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>('');
   useEffect(() => {
@@ -17,9 +18,15 @@ export default function useFetchPokemonFromAPI(url: string, query: string) {
         if (!response.ok) {
           throw new Error('Pokemon not found, please try again!');
         }
-        const data = (await response.json()) as PokemonApiResponse;
-        setData(data);
-        localStorage.setItem('lastSearch', query);
+        const data = (await response.json()) as Pokemon | PokemonList;
+        if (query) {
+          setData(data as Pokemon);
+        } else {
+          setData(data as PokemonList);
+        }
+        if (query) {
+          localStorage.setItem('lastSearch', query);
+        }
       } catch (error: unknown) {
         console.error(error);
         setError(

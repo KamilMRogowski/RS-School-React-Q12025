@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 type searchBoxProps = {
-  onSearch: (query: string) => void;
   searchQuery: string;
 };
 
-export default function SearchBox({ onSearch, searchQuery }: searchBoxProps) {
+export default function SearchBox({ searchQuery }: searchBoxProps) {
   const [query, setQuery] = useState(searchQuery || '');
 
   useEffect(() => {
@@ -16,10 +16,6 @@ export default function SearchBox({ onSearch, searchQuery }: searchBoxProps) {
     setQuery(event.target.value);
   };
 
-  const handleClick = () => {
-    onSearch(query.trim());
-  };
-
   return (
     <div className="search-container">
       <input
@@ -28,7 +24,7 @@ export default function SearchBox({ onSearch, searchQuery }: searchBoxProps) {
         onChange={handleChange}
         value={query}
       />
-      <button onClick={handleClick}>Search</button>
+      <Link to={query ? `/pokemon/${query.trim()}` : '/'}>Search</Link>;
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { PokemonApiResponse } from '../utils/interfaces/pokemonApiResponse';
 import PokemonCard from './PokemonCard';
 import Loader from './Loader';
-import PokemonList from './PokemonList';
 
 type ResultsProps = {
   results: PokemonApiResponse;
@@ -18,10 +17,6 @@ export default function Results({
     <div className="results-container">
       <div className="loader">{loading && <Loader />}</div>
       {!errorMessage && !loading && <PokemonCard results={results} />}
-      {!errorMessage && !loading && 'results' in results && (
-        <PokemonList results={results} />
-      )}
-
       {errorMessage && (
         <div>
           <h3>{errorMessage}</h3>

@@ -1,30 +1,39 @@
-import { PokemonApiResponse } from '../utils/interfaces/pokemonApiResponse';
+import { useParams } from 'react-router';
+import useFetchPokemonFromAPI from '../hooks/fetchPokemonFromAPI';
+import Loader from './Loader';
 
-type PokemonListProps = {
-  results: PokemonApiResponse;
-};
-
-export default function PokemonCard({ results }: PokemonListProps) {
+export default function PokemonCard() {
+  const { pokemonName } = useParams();
+  const { data, loading, error } = useFetchPokemonFromAPI(
+    'https://pokeapi.co/api/v2/pokemon/',
+    pokemonName as string
+  );
   return (
-    <div className="results-container">
-      {'name' in results && (
-        <div className="pokemon-details">
+    <div className="pokemmon-card">
+      {'name' in data && !error && (
+        <div className="pokemon-card_details">
+          <div className="loader">{loading && <Loader />}</div>
           <h2>I choose you!</h2>
-          <h2>{results.name}</h2>
-          <div className="pokemon-images">
-            <img src={results.sprites.front_default} alt={results.name} />
-            <img src={results.sprites.back_default} alt={results.name} />
+          <h2>{data.name}</h2>
+          <div className="pokemon-card_images">
+            <img src={data.sprites.front_default} alt={data.name} />
+            <img src={data.sprites.back_default} alt={data.name} />
           </div>
-          <div className="pokemon-stats">
-            <h3>Height: {results.height * 10} cm</h3>
-            <h3>Weight: {results.weight} hectograms</h3>
+          <div className="pokemon-card_stats">
+            <h3>Height: {data.height * 10} cm</h3>
+            <h3>Weight: {data.weight} hectograms</h3>
             <h3>
               Types:
-              {results.types.map((type) => (
+              {data.types.map((type) => (
                 <span key={type.slot}> {type.type.name}</span>
               ))}
             </h3>
           </div>
+        </div>
+      )}
+      {error && (
+        <div>
+          <h3>{error}</h3>
         </div>
       )}
     </div>
