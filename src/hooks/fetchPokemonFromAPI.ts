@@ -24,7 +24,7 @@ export default function useFetchPokemonFromAPI(url: string, query: string) {
         } else {
           setData(data as PokemonList);
         }
-        if (query) {
+        if (query && !query.includes('offset')) {
           localStorage.setItem('lastSearch', query);
         }
       } catch (error: unknown) {

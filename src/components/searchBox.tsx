@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useParams } from 'react-router';
+import useGetQueryFromLS from '../hooks/getQueryFromLS';
 
-type searchBoxProps = {
-  searchQuery: string;
-};
-
-export default function SearchBox({ searchQuery }: searchBoxProps) {
-  const [query, setQuery] = useState(searchQuery || '');
+export default function SearchBox() {
+  const { pokemonName } = useParams();
+  const [query, setQuery] = useState('');
+  const queryLS = useGetQueryFromLS();
 
   useEffect(() => {
-    setQuery(searchQuery);
-  }, [searchQuery]);
+    if (queryLS) {
+      setQuery(queryLS);
+    } else {
+      setQuery('');
+    }
+  }, [queryLS]);
+
+  useEffect(() => {
+    if (pokemonName) {
+      setQuery(pokemonName);
+    }
+  }, [pokemonName]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -24,7 +33,12 @@ export default function SearchBox({ searchQuery }: searchBoxProps) {
         onChange={handleChange}
         value={query}
       />
-      <Link to={query ? `/pokemon/${query.trim()}` : '/'}>Search</Link>;
+      <Link
+        className="search-button"
+        to={query ? `pokemon/${query.trim()}` : '#'}
+      >
+        Search
+      </Link>
     </div>
   );
 }
