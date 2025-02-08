@@ -3,7 +3,7 @@ import useFetchPokemonFromAPI from '../hooks/fetchPokemonFromAPI';
 import Loader from './Loader';
 import Pagination from './Pagination';
 
-const ITEMS_PER_PAGE = 20;
+export const ITEMS_PER_PAGE = 20;
 
 export default function PokemonList() {
   const { pageId } = useParams();
@@ -26,7 +26,7 @@ export default function PokemonList() {
       <div className="pokemon-list" onClick={closePokeCard}>
         <div className="loader">{loading && <Loader />}</div>
         <h2>Pokemon examples to get you started:</h2>
-        <div className="pokemon-list__items">
+        <div className="pokemon-list__items" data-testid="pokemon-list-items">
           {data.results.map((pokemon) => {
             return (
               <Link
@@ -42,7 +42,7 @@ export default function PokemonList() {
         <Pagination />
         {error && (
           <div>
-            <h3>{error}</h3>
+            <h3 data-testid="pokemon-list-error">{error}</h3>
           </div>
         )}
       </div>
