@@ -10,7 +10,7 @@ export default function PokemonCard() {
   );
 
   return (
-    <div className="pokemon-card">
+    <div className="pokemon-card" data-testid="loaderh">
       {loading && <Loader />}
       {'name' in data && !error && !loading && (
         <div className="pokemon-card__details">

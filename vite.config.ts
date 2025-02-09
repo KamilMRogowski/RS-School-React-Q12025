@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/RS-School-React-Q12025/',
   test: {
+    globals: true,
     environment: 'jsdom',
     coverage: {
       include: ['**/*.tsx'],
