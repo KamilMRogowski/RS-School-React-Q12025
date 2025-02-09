@@ -19,7 +19,9 @@ export default function Pagination() {
           {currentPage - 1}
         </Link>
       )}
-      <div className="search-button current">{currentPage}</div>
+      <div className="search-button current" data-testid="current-page">
+        {currentPage}
+      </div>
       <Link className="search-button" to={`/page/${String(currentPage + 1)}`}>
         {currentPage + 1}
       </Link>
