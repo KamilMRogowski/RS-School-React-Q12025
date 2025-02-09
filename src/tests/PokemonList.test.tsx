@@ -1,14 +1,15 @@
 import { it, expect, describe, vi, Mock } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router';
+import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router';
 import { ITEMS_PER_PAGE } from '../components/PokemonList';
 import PokemonList from '../components/PokemonList';
 import useFetchPokemonFromAPI from '../hooks/fetchPokemonFromAPI';
 import { PokemonList as PokemonListType } from '../utils/interfaces/pokemonApiResponse';
+import '@testing-library/jest-dom';
 
 vi.mock('../hooks/fetchPokemonFromAPI');
 
-describe('PokemonList', () => {
+describe('PokemonList Component', () => {
   it('renders specified number of cards', () => {
     const mockResults: PokemonListType = {
       count: ITEMS_PER_PAGE,
@@ -35,7 +36,7 @@ describe('PokemonList', () => {
     const pokemonListItems = screen.getByTestId('pokemon-list-items');
     expect(pokemonListItems.children).toHaveLength(ITEMS_PER_PAGE);
   });
-  //Check that an appropriate message is displayed if no cards are present.
+
   it('renders error message if no cards are present', () => {
     const mockResults: PokemonListType = {
       count: ITEMS_PER_PAGE,
@@ -60,5 +61,36 @@ describe('PokemonList', () => {
     expect(pokemonListError.innerHTML).toBe(
       'Pokemon not found, please try again!'
     );
+  });
+
+  it('opens a detailed card upon clicking a card and triggers API call', () => {
+    const mockResults: PokemonListType = {
+      count: ITEMS_PER_PAGE,
+      next: '',
+      previous: '',
+      results: [
+        {
+          name: 'pikachu',
+          url: '',
+        },
+      ],
+    };
+
+    (useFetchPokemonFromAPI as Mock).mockReturnValue({
+      data: mockResults,
+      loading: false,
+      error: '',
+    });
+
+    render(
+      <MemoryRouter initialEntries={['/page/3']}>
+        <Routes>
+          <Route path="/page/:pageId" element={<PokemonList />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    const pokemonCard = screen.getByText('pikachu');
+    expect(pokemonCard).toHaveAttribute('href', '/page/3/pokemon/pikachu');
   });
 });

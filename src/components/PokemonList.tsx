@@ -39,7 +39,7 @@ export default function PokemonList() {
             );
           })}
         </div>
-        <Pagination />
+        {data.results.length > 0 && <Pagination />}
         {error && (
           <div>
             <h3 data-testid="pokemon-list-error">{error}</h3>

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter, Routes, Route } from 'react-router';
 import PokemonCard from '../components/PokemonCard';
 import useFetchPokemonFromAPI from '../hooks/fetchPokemonFromAPI';
 import { expect, it, describe, vi, Mock } from 'vitest';
@@ -68,12 +68,14 @@ describe('PokemonCard Component', () => {
     });
 
     render(
-      <MemoryRouter>
-        <PokemonCard />
+      <MemoryRouter initialEntries={['/page/3']}>
+        <Routes>
+          <Route path="/page/:pageId" element={<PokemonCard />} />
+        </Routes>
       </MemoryRouter>
     );
 
     const closeButton = screen.getByText('X');
-    expect(closeButton.closest('a')).toHaveAttribute('href', '/page/undefined');
+    expect(closeButton.closest('a')).toHaveAttribute('href', '/page/3');
   });
 });

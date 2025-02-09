@@ -34,6 +34,7 @@ export default function SearchBox() {
         value={query}
       />
       <Link
+        data-testid="search-button"
         className="search-button"
         to={query ? `pokemon/${query.trim()}` : '#'}
       >
