@@ -10,6 +10,8 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
       include: ['**/*.tsx'],
       exclude: [
         '**/node_modules/**',
