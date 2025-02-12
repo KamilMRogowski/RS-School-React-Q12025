@@ -15,4 +15,13 @@
   &:hover {
     background-color: #a71d2a;
   }
+
+  &--dark-mode {
+    background-color: #6b121b;
+    color: $dark-mode-text;
+
+    &:hover {
+      background-color: #7e1520;
+    }
+  }
 }

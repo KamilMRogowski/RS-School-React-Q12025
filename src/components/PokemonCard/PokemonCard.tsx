@@ -2,8 +2,10 @@ import './PokemonCard.scss';
 import { Link, useParams } from 'react-router';
 import useFetchPokemonFromAPI from '../../hooks/fetchPokemonFromAPI';
 import Loader from '../Loader/Loader';
+import { useDarkTheme } from '../../context/DarkThemeContext';
 
 export default function PokemonCard() {
+  const { darkTheme } = useDarkTheme();
   const { pageId, pokemonName } = useParams();
   const { data, loading, error } = useFetchPokemonFromAPI(
     'https://pokeapi.co/api/v2/pokemon/',
@@ -11,12 +13,15 @@ export default function PokemonCard() {
   );
 
   return (
-    <div className="pokemon-card" data-testid="loader">
+    <div
+      className={`pokemon-card ${darkTheme ? 'pokemon-card--dark-mode' : ''}`}
+      data-testid="loader"
+    >
       {loading && <Loader />}
       {'name' in data && !error && !loading && (
         <div className="pokemon-card__details">
           <Link
-            className="pokemon-card__close-button"
+            className={`pokemon-card__close-button ${darkTheme ? 'pokemon-card__close-button--dark-mode' : ''}`}
             to={`/page/${pageId as string}`}
           >
             X

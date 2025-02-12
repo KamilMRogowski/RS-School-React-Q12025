@@ -2,6 +2,11 @@
   padding: 30px;
   border-radius: 20px;
   border: 2px solid black;
+
+  &--dark-mode {
+    background-color: $dark-mode-bg2;
+    border-color: $dark-mode-bg2;
+  }
 }
 
 .pokemon-card__close-button {
@@ -16,6 +21,15 @@
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+
+  &--dark-mode {
+    border-color: $dark-mode-bg;
+    color: $dark-mode-bg;
+
+    &:hover {
+      background-color: $dark-mode-bg2-hover;
+    }
+  }
 }
 
 .pokemon-card__close-button:hover {

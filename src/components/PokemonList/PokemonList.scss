@@ -6,29 +6,38 @@
   align-items: center;
   gap: 20px;
   text-transform: capitalize;
-}
 
-.pokemon-list__items {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 10px;
-}
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 10px;
+  }
 
-.pokemon-list__name {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 150px;
-  height: 50px;
-  border: 2px solid black;
-  border-radius: 25px;
-  color: black;
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: bold;
-}
+  &__name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 25px;
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
 
-.pokemon-list__name:hover {
-  background-color: #ccc;
+    &:hover {
+      background-color: #ccc;
+    }
+
+    &-dark-mode {
+      color: $dark-mode-text;
+      border-color: $dark-mode-bg2;
+
+      &:hover {
+        background-color: $dark-mode-bg2-hover;
+      }
+    }
+  }
 }
