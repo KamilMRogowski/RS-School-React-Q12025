@@ -4,15 +4,18 @@ import SearchBox from './SearchBox';
 import { vi, it, expect, describe, Mock } from 'vitest';
 import '@testing-library/jest-dom';
 import useGetQueryFromLS from '../../hooks/getQueryFromLS';
+import DarkThemeProvider from '../../context/DarkThemeContext';
 
 vi.mock('../../hooks/getQueryFromLS');
 
 describe('SearchBox Component', () => {
   it('clicking Search button redirects to correct subpage and saves to local storage', () => {
     render(
-      <MemoryRouter>
-        <SearchBox />
-      </MemoryRouter>
+      <DarkThemeProvider>
+        <MemoryRouter>
+          <SearchBox />
+        </MemoryRouter>
+      </DarkThemeProvider>
     );
 
     const input = screen.getByPlaceholderText('Search your favorite pokemon');
@@ -27,9 +30,11 @@ describe('SearchBox Component', () => {
     (useGetQueryFromLS as Mock).mockReturnValue('pikachu');
 
     render(
-      <MemoryRouter>
-        <SearchBox />
-      </MemoryRouter>
+      <DarkThemeProvider>
+        <MemoryRouter>
+          <SearchBox />
+        </MemoryRouter>
+      </DarkThemeProvider>
     );
 
     const input = screen.getByPlaceholderText('Search your favorite pokemon');

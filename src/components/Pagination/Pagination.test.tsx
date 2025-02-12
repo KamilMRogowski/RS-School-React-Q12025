@@ -2,17 +2,20 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router';
 import userEvent from '@testing-library/user-event';
 import Pagination from './Pagination';
+import DarkThemeProvider from '../../context/DarkThemeContext';
 import { expect, it, describe } from 'vitest';
 import '@testing-library/jest-dom';
 
 describe('Pagination Component', () => {
   it('displays the current page correctly', () => {
     render(
-      <MemoryRouter initialEntries={['/page/3']}>
-        <Routes>
-          <Route path="/page/:pageId" element={<Pagination />} />
-        </Routes>
-      </MemoryRouter>
+      <DarkThemeProvider>
+        <MemoryRouter initialEntries={['/page/3']}>
+          <Routes>
+            <Route path="/page/:pageId" element={<Pagination />} />
+          </Routes>
+        </MemoryRouter>
+      </DarkThemeProvider>
     );
 
     const currentPage = screen.getByTestId('current-page');
@@ -21,9 +24,11 @@ describe('Pagination Component', () => {
 
   it("disables 'Previous Page' button on page 1", () => {
     render(
-      <MemoryRouter initialEntries={['/page/1']}>
-        <Pagination />
-      </MemoryRouter>
+      <DarkThemeProvider>
+        <MemoryRouter initialEntries={['/page/1']}>
+          <Pagination />
+        </MemoryRouter>
+      </DarkThemeProvider>
     );
 
     const prevButton = screen.getByText('Previous Page');
@@ -34,11 +39,13 @@ describe('Pagination Component', () => {
   it("updates the URL when 'Next Page' is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <MemoryRouter initialEntries={['/page/2']}>
-        <Routes>
-          <Route path="/page/:pageId" element={<Pagination />} />
-        </Routes>
-      </MemoryRouter>
+      <DarkThemeProvider>
+        <MemoryRouter initialEntries={['/page/2']}>
+          <Routes>
+            <Route path="/page/:pageId" element={<Pagination />} />
+          </Routes>
+        </MemoryRouter>
+      </DarkThemeProvider>
     );
 
     const nextPageButton = screen.getByText('Next Page');
@@ -53,11 +60,13 @@ describe('Pagination Component', () => {
   it("updates the URL when 'Previous Page' is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <MemoryRouter initialEntries={['/page/3']}>
-        <Routes>
-          <Route path="/page/:pageId" element={<Pagination />} />
-        </Routes>
-      </MemoryRouter>
+      <DarkThemeProvider>
+        <MemoryRouter initialEntries={['/page/3']}>
+          <Routes>
+            <Route path="/page/:pageId" element={<Pagination />} />
+          </Routes>
+        </MemoryRouter>
+      </DarkThemeProvider>
     );
 
     const prevPageButton = screen.getByText('Previous Page');

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router';
 import PokemonCard from './PokemonCard';
+import DarkThemeProvider from '../../context/DarkThemeContext';
 import useFetchPokemonFromAPI from '../../hooks/fetchPokemonFromAPI';
 import { expect, it, describe, vi, Mock } from 'vitest';
 import '@testing-library/jest-dom';
@@ -32,9 +33,11 @@ describe('PokemonCard Component', () => {
     });
 
     render(
-      <MemoryRouter>
-        <PokemonCard />
-      </MemoryRouter>
+      <DarkThemeProvider>
+        <MemoryRouter>
+          <PokemonCard />
+        </MemoryRouter>
+      </DarkThemeProvider>
     );
 
     expect(screen.getByTestId('loader')).toBeInTheDocument();
@@ -48,9 +51,11 @@ describe('PokemonCard Component', () => {
     });
 
     render(
-      <MemoryRouter>
-        <PokemonCard />
-      </MemoryRouter>
+      <DarkThemeProvider>
+        <MemoryRouter>
+          <PokemonCard />
+        </MemoryRouter>
+      </DarkThemeProvider>
     );
 
     expect(screen.getByText('I choose you!')).toBeInTheDocument();
@@ -68,11 +73,13 @@ describe('PokemonCard Component', () => {
     });
 
     render(
-      <MemoryRouter initialEntries={['/page/3']}>
-        <Routes>
-          <Route path="/page/:pageId" element={<PokemonCard />} />
-        </Routes>
-      </MemoryRouter>
+      <DarkThemeProvider>
+        <MemoryRouter initialEntries={['/page/3']}>
+          <Routes>
+            <Route path="/page/:pageId" element={<PokemonCard />} />
+          </Routes>
+        </MemoryRouter>
+      </DarkThemeProvider>
     );
 
     const closeButton = screen.getByText('X');

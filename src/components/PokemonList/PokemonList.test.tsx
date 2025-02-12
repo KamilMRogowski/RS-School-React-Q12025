@@ -1,6 +1,7 @@
 import { it, expect, describe, vi, Mock } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router';
+import DarkThemeProvider from '../../context/DarkThemeContext';
 import { ITEMS_PER_PAGE } from './PokemonList';
 import PokemonList from './PokemonList';
 import useFetchPokemonFromAPI from '../../hooks/fetchPokemonFromAPI';
@@ -28,9 +29,11 @@ describe('PokemonList Component', () => {
     });
 
     render(
-      <BrowserRouter>
-        <PokemonList />
-      </BrowserRouter>
+      <DarkThemeProvider>
+        <BrowserRouter>
+          <PokemonList />
+        </BrowserRouter>
+      </DarkThemeProvider>
     );
 
     const pokemonListItems = screen.getByTestId('pokemon-list-items');
@@ -52,9 +55,11 @@ describe('PokemonList Component', () => {
     });
 
     render(
-      <BrowserRouter>
-        <PokemonList />
-      </BrowserRouter>
+      <DarkThemeProvider>
+        <BrowserRouter>
+          <PokemonList />
+        </BrowserRouter>
+      </DarkThemeProvider>
     );
 
     const pokemonListError = screen.getByTestId('pokemon-list-error');
@@ -83,11 +88,13 @@ describe('PokemonList Component', () => {
     });
 
     render(
-      <MemoryRouter initialEntries={['/page/3']}>
-        <Routes>
-          <Route path="/page/:pageId" element={<PokemonList />} />
-        </Routes>
-      </MemoryRouter>
+      <DarkThemeProvider>
+        <MemoryRouter initialEntries={['/page/3']}>
+          <Routes>
+            <Route path="/page/:pageId" element={<PokemonList />} />
+          </Routes>
+        </MemoryRouter>
+      </DarkThemeProvider>
     );
 
     const pokemonCard = screen.getByText('pikachu');

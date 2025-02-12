@@ -3,6 +3,7 @@ import { expect, it, describe } from 'vitest';
 import ErrorBoundary from './ErrorBoundary';
 import ErrorButton from '../ErrorButton/ErrorButton';
 import '@testing-library/jest-dom';
+import DarkThemeProvider from '../../context/DarkThemeContext';
 
 describe('ErrorBoundary', () => {
   it('should render children when there is no error', () => {
@@ -17,14 +18,17 @@ describe('ErrorBoundary', () => {
 
   it('should show error UI when an error is thrown in a child component', () => {
     render(
-      <ErrorBoundary>
-        <ErrorButton />
-      </ErrorBoundary>
+      <DarkThemeProvider>
+        <ErrorBoundary>
+          <ErrorButton />
+        </ErrorBoundary>
+      </DarkThemeProvider>
     );
 
-    expect(screen.getByText('ERROR BUTTON')).toBeInTheDocument();
+    const errorButton = screen.getByTestId('error-button');
+    expect(errorButton).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('ERROR BUTTON'));
+    fireEvent.click(errorButton);
 
     expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
     expect(

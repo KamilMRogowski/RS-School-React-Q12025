@@ -7,10 +7,10 @@ import DarkThemeProvider from './context/DarkThemeContext.tsx';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <HashRouter>
-      <DarkThemeProvider>
+    <DarkThemeProvider>
+      <HashRouter>
         <App />
-      </DarkThemeProvider>
-    </HashRouter>
+      </HashRouter>
+    </DarkThemeProvider>
   </StrictMode>
 );

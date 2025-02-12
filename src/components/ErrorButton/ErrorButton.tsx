@@ -15,6 +15,7 @@ export default function ErrorButton() {
       onClick={() => {
         setError(true);
       }}
+      data-testId="error-button"
     >
       ERROR BUTTON
     </button>
