@@ -1,10 +1,11 @@
+import './Pagination.scss';
 import { useParams, Link } from 'react-router';
 
 export default function Pagination() {
   const { pageId } = useParams();
   const currentPage = Number(pageId) || 1;
   return (
-    <div className="pokemon-list__pagination">
+    <div className="pagination">
       <Link
         aria-disabled={currentPage === 1}
         className={

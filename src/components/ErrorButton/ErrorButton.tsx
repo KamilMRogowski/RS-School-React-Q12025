@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './ErrorButton.scss';
 
 export default function ErrorButton() {
   const [error, setError] = useState(false);

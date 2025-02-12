@@ -1,7 +1,8 @@
+import './PokemonList.scss';
 import { Link, useParams, useNavigate, useLocation } from 'react-router';
-import useFetchPokemonFromAPI from '../hooks/fetchPokemonFromAPI';
-import Loader from './Loader';
-import Pagination from './Pagination';
+import useFetchPokemonFromAPI from '../../hooks/fetchPokemonFromAPI';
+import Loader from '../Loader/Loader';
+import Pagination from '../Pagination/Pagination';
 
 export const ITEMS_PER_PAGE = 20;
 

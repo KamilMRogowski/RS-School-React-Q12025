@@ -1,7 +1,8 @@
-import SearchBox from '../components/SearchBox';
-import ErrorBoundary from '../components/ErrorBoundary';
-import ErrorButton from '../components/ErrorButton';
-import PokemonList from '../components/PokemonList';
+import './HomePage.scss';
+import SearchBox from '../../components/SearchBox/SearchBox';
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
+import ErrorButton from '../../components/ErrorButton/ErrorButton';
+import PokemonList from '../../components/PokemonList/PokemonList';
 import { Outlet } from 'react-router';
 
 export default function HomePage() {

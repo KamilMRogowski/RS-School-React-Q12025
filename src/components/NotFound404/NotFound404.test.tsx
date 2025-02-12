@@ -1,7 +1,7 @@
 // NotFound.test.tsx
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import NotFound from '../components/NotFound404';
+import NotFound from './NotFound404';
 import { describe, it, expect } from 'vitest';
 import '@testing-library/jest-dom';
 

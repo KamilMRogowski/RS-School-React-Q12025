@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router';
 import userEvent from '@testing-library/user-event';
-import Pagination from '../components/Pagination';
+import Pagination from './Pagination';
 import { expect, it, describe } from 'vitest';
 import '@testing-library/jest-dom';
 

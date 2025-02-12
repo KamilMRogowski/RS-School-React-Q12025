@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router';
-import PokemonCard from '../components/PokemonCard';
-import useFetchPokemonFromAPI from '../hooks/fetchPokemonFromAPI';
+import PokemonCard from './PokemonCard';
+import useFetchPokemonFromAPI from '../../hooks/fetchPokemonFromAPI';
 import { expect, it, describe, vi, Mock } from 'vitest';
 import '@testing-library/jest-dom';
 
-vi.mock('../hooks/fetchPokemonFromAPI');
+vi.mock('../../hooks/fetchPokemonFromAPI');
 
 const mockPokemonData = {
   name: 'pikachu',

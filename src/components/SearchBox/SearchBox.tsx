@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
-import useGetQueryFromLS from '../hooks/getQueryFromLS';
+import useGetQueryFromLS from '../../hooks/getQueryFromLS';
+import './SearchBox.scss';
 
 export default function SearchBox() {
   const { pokemonName } = useParams();

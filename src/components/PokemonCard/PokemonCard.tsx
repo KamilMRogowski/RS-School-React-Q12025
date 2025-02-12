@@ -1,6 +1,7 @@
+import './PokemonCard.scss';
 import { Link, useParams } from 'react-router';
-import useFetchPokemonFromAPI from '../hooks/fetchPokemonFromAPI';
-import Loader from './Loader';
+import useFetchPokemonFromAPI from '../../hooks/fetchPokemonFromAPI';
+import Loader from '../Loader/Loader';
 
 export default function PokemonCard() {
   const { pageId, pokemonName } = useParams();

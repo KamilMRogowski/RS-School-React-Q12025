@@ -1,13 +1,13 @@
 import { it, expect, describe, vi, Mock } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router';
-import { ITEMS_PER_PAGE } from '../components/PokemonList';
-import PokemonList from '../components/PokemonList';
-import useFetchPokemonFromAPI from '../hooks/fetchPokemonFromAPI';
-import { PokemonList as PokemonListType } from '../utils/interfaces/pokemonApiResponse';
+import { ITEMS_PER_PAGE } from './PokemonList';
+import PokemonList from './PokemonList';
+import useFetchPokemonFromAPI from '../../hooks/fetchPokemonFromAPI';
+import { PokemonList as PokemonListType } from '../../utils/interfaces/pokemonApiResponse';
 import '@testing-library/jest-dom';
 
-vi.mock('../hooks/fetchPokemonFromAPI');
+vi.mock('../../hooks/fetchPokemonFromAPI');
 
 describe('PokemonList Component', () => {
   it('renders specified number of cards', () => {

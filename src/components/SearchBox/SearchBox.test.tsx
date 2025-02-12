@@ -1,11 +1,11 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import SearchBox from '../components/SearchBox';
+import SearchBox from './SearchBox';
 import { vi, it, expect, describe, Mock } from 'vitest';
 import '@testing-library/jest-dom';
-import useGetQueryFromLS from '../hooks/getQueryFromLS';
+import useGetQueryFromLS from '../../hooks/getQueryFromLS';
 
-vi.mock('../hooks/getQueryFromLS');
+vi.mock('../../hooks/getQueryFromLS');
 
 describe('SearchBox Component', () => {
   it('clicking Search button redirects to correct subpage and saves to local storage', () => {
