@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { pokemonApi } from './api/pokemonApi';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import { pokemonApi } from './api/pokemonApi';
+import currentPageReducer from './slices/currentPageSlice';
 
 export const store = configureStore({
   reducer: {
     [pokemonApi.reducerPath]: pokemonApi.reducer,
+    currentPage: currentPageReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(pokemonApi.middleware);

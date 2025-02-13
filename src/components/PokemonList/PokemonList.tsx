@@ -1,16 +1,18 @@
 import './PokemonList.scss';
-import { Link, useParams, useNavigate, useLocation } from 'react-router';
-import { useDarkTheme } from '../../context/DarkThemeContext';
+import { useParams, useNavigate, useLocation } from 'react-router';
 import Loader from '../Loader/Loader';
 import Pagination from '../Pagination/Pagination';
+import PokemonCard from '../PokemonCard/PokemonCard';
 import { useGetPokemonListQuery } from '../../store/api/pokemonApi';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { clearCurrentPage } from '../../store/slices/currentPageSlice';
 
-export const ITEMS_PER_PAGE = 20;
-
+export const ITEMS_PER_PAGE = 10;
 export default function PokemonList() {
-  const { darkTheme } = useDarkTheme();
+  const dispatch = useDispatch();
   const { pageId } = useParams();
-  const currentPage = Number(pageId) || 1;
+  const currentPageNumber = Number(pageId) || 1;
   const navigate = useNavigate();
   const location = useLocation();
   const {
@@ -18,7 +20,7 @@ export default function PokemonList() {
     error,
     isLoading,
   } = useGetPokemonListQuery({
-    offset: currentPage - 1,
+    offset: (currentPageNumber - 1) * ITEMS_PER_PAGE,
     limit: ITEMS_PER_PAGE,
   });
 
@@ -28,24 +30,27 @@ export default function PokemonList() {
     }
   };
 
+  useEffect(() => {
+    dispatch(clearCurrentPage());
+  }, [pageId, dispatch]);
+
   return (
     <div className={`pokemon-list`} onClick={closePokeCard}>
-      <div className="loader">{isLoading && <Loader />}</div>
       <h2>Pokemon examples to get you started:</h2>
-      <div className="pokemon-list__items" data-testid="pokemon-list-items">
-        {pokemonList &&
-          pokemonList.results.map((pokemon) => {
-            return (
-              <Link
-                key={pokemon.name}
-                className={`pokemon-list__name ${darkTheme ? 'pokemon-list__name-dark-mode' : ''}`}
-                to={`/page/${String(currentPage)}/pokemon/${pokemon.name}`}
-              >
-                {pokemon.name}
-              </Link>
-            );
-          })}
-      </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="pokemon-list__items" data-testid="pokemon-list-items">
+          {pokemonList &&
+            pokemonList.results.map((pokemon) => {
+              return (
+                <div key={pokemon.name}>
+                  <PokemonCard pokemon={pokemon.name} />
+                </div>
+              );
+            })}
+        </div>
+      )}
       {pokemonList && pokemonList.results.length > 0 && <Pagination />}
       {error && 'message' in error && (
         <div>

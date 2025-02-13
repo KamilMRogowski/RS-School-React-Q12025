@@ -1,7 +1,7 @@
 import { Route, Routes, Navigate } from 'react-router';
 import HomePage from './views/Homepage/Homepage';
 import NotFound404 from './components/NotFound404/NotFound404';
-import PokemonCard from './components/PokemonCard/PokemonCard';
+import PokemonCardDetails from './components/PokemonCardDetails/PokemonCardDetails';
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
         <Route
           path="pokemon/:pokemonName"
           key={location.pathname}
-          element={<PokemonCard />}
+          element={<PokemonCardDetails />}
         />
       </Route>
       <Route path="*" element={<NotFound404 />} />

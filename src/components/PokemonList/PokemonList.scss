@@ -1,5 +1,4 @@
 .pokemon-list {
-  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,8 +8,8 @@
 
   &__items {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 10px;
   }
 

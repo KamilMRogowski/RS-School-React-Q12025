@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router';
-import PokemonCard from './PokemonCard';
+import PokemonCardDetails from './PokemonCardDetails';
 import DarkThemeProvider from '../../context/DarkThemeContext';
 import { expect, it, describe, vi, Mock } from 'vitest';
 import '@testing-library/jest-dom';
@@ -35,7 +35,7 @@ describe('PokemonCard Component', () => {
     render(
       <DarkThemeProvider>
         <MemoryRouter>
-          <PokemonCard />
+          <PokemonCardDetails />
         </MemoryRouter>
       </DarkThemeProvider>
     );
@@ -53,7 +53,7 @@ describe('PokemonCard Component', () => {
     render(
       <DarkThemeProvider>
         <MemoryRouter>
-          <PokemonCard />
+          <PokemonCardDetails />
         </MemoryRouter>
       </DarkThemeProvider>
     );
@@ -76,7 +76,7 @@ describe('PokemonCard Component', () => {
       <DarkThemeProvider>
         <MemoryRouter initialEntries={['/page/3']}>
           <Routes>
-            <Route path="/page/:pageId" element={<PokemonCard />} />
+            <Route path="/page/:pageId" element={<PokemonCardDetails />} />
           </Routes>
         </MemoryRouter>
       </DarkThemeProvider>

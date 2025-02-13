@@ -1,58 +1,57 @@
 import './PokemonCard.scss';
-import { Link, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import Loader from '../Loader/Loader';
 import { useDarkTheme } from '../../context/DarkThemeContext';
 import { useGetPokemonDetailsQuery } from '../../store/api/pokemonApi';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { addCurrentPageItem } from '../../store/slices/currentPageSlice';
 
-export default function PokemonCard() {
+interface PokemonCardProps {
+  pokemon: string;
+}
+
+export default function PokemonCard({ pokemon }: PokemonCardProps) {
   const { darkTheme } = useDarkTheme();
-  const { pageId, pokemonName } = useParams();
+  const { pageId } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
-    data: pokemon,
+    data: pokemonDetails,
     isLoading,
     isFetching,
     error,
-  } = useGetPokemonDetailsQuery(pokemonName ?? '');
+  } = useGetPokemonDetailsQuery(pokemon);
+
+  const openPokeCard = () => {
+    void navigate(`/page/${pageId as string}/pokemon/${pokemon}`);
+  };
+
+  useEffect(() => {
+    if (pokemonDetails) {
+      dispatch(addCurrentPageItem(pokemonDetails));
+    }
+  }, [dispatch, pokemonDetails]);
 
   return (
-    <div
-      className={`pokemon-card ${darkTheme ? 'pokemon-card--dark-mode' : ''}`}
-    >
-      <Link
-        className={`pokemon-card__close-button ${darkTheme ? 'pokemon-card__close-button--dark-mode' : ''}`}
-        to={`/page/${pageId as string}`}
+    <div onClick={openPokeCard}>
+      <div
+        className={`pokemon-card ${darkTheme ? 'pokemon-card--dark-mode' : ''}`}
       >
-        X
-      </Link>
-      {isLoading || isFetching ? (
-        <div className="pokemon-card__error">
+        {!error && <h3 className="pokemon-card__name">{pokemon}</h3>}
+        {isLoading || isFetching ? (
           <Loader />
-        </div>
-      ) : error && 'data' in error ? (
-        <div className="pokemon-card__error">
-          <h3>Pokemon {pokemonName}</h3>
-          <h3>{JSON.stringify(error.data).replace(/"/g, '')}</h3>
-        </div>
-      ) : pokemon ? (
-        <div className="pokemon-card__details">
-          <h2>I choose you!</h2>
-          <h2 className="pokemon-card__name">{pokemon.name}</h2>
-          <div className="pokemon-card__images">
-            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-            <img src={pokemon.sprites.back_default} alt={pokemon.name} />
-          </div>
-          <div className="pokemon-card__stats">
-            <h3>Height: {pokemon.height * 10} cm</h3>
-            <h3>Weight: {pokemon.weight} hectograms</h3>
-            <h3>
-              Types:
-              {pokemon.types.map((type) => (
-                <span key={type.slot}> {type.type.name}</span>
-              ))}
-            </h3>
-          </div>
-        </div>
-      ) : null}
+        ) : error && 'data' in error ? (
+          <>
+            <h3>Pokemon {pokemon}</h3>
+            <h3>{JSON.stringify(error.data).replace(/"/g, '')}</h3>
+          </>
+        ) : pokemonDetails ? (
+          <img src={pokemonDetails.sprites.front_default} alt={pokemon} />
+        ) : (
+          <p>Failed to fetch image</p>
+        )}
+      </div>
     </div>
   );
 }
