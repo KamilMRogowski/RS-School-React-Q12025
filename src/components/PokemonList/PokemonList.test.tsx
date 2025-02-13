@@ -4,11 +4,11 @@ import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router';
 import DarkThemeProvider from '../../context/DarkThemeContext';
 import { ITEMS_PER_PAGE } from './PokemonList';
 import PokemonList from './PokemonList';
-import useFetchPokemonFromAPI from '../../hooks/fetchPokemonFromAPI';
+import { useGetPokemonListQuery } from '../../store/api/pokemonApi';
 import { PokemonList as PokemonListType } from '../../utils/interfaces/pokemonApiResponse';
 import '@testing-library/jest-dom';
 
-vi.mock('../../hooks/fetchPokemonFromAPI');
+vi.mock('../../store/api/pokemonApi');
 
 describe('PokemonList Component', () => {
   it('renders specified number of cards', () => {
@@ -22,10 +22,10 @@ describe('PokemonList Component', () => {
       })),
     };
 
-    (useFetchPokemonFromAPI as Mock).mockReturnValue({
+    (useGetPokemonListQuery as Mock).mockReturnValue({
       data: mockResults,
-      loading: false,
-      error: '',
+      isLoading: false,
+      error: {},
     });
 
     render(
@@ -48,10 +48,10 @@ describe('PokemonList Component', () => {
       results: [],
     };
 
-    (useFetchPokemonFromAPI as Mock).mockReturnValue({
+    (useGetPokemonListQuery as Mock).mockReturnValue({
       data: mockResults,
       loading: false,
-      error: 'Pokemon not found, please try again!',
+      error: { message: 'Pokemon not found' },
     });
 
     render(
@@ -63,9 +63,7 @@ describe('PokemonList Component', () => {
     );
 
     const pokemonListError = screen.getByTestId('pokemon-list-error');
-    expect(pokemonListError.innerHTML).toBe(
-      'Pokemon not found, please try again!'
-    );
+    expect(pokemonListError.innerHTML).toBe('Pokemon not found');
   });
 
   it('opens a detailed card upon clicking a card and triggers API call', () => {
@@ -81,7 +79,7 @@ describe('PokemonList Component', () => {
       ],
     };
 
-    (useFetchPokemonFromAPI as Mock).mockReturnValue({
+    (useGetPokemonListQuery as Mock).mockReturnValue({
       data: mockResults,
       loading: false,
       error: '',

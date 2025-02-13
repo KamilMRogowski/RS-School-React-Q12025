@@ -8,7 +8,11 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Navigate to="/page/1" replace />} />
       <Route path="/page/:pageId" element={<HomePage />}>
-        <Route path="pokemon/:pokemonName" element={<PokemonCard />} />
+        <Route
+          path="pokemon/:pokemonName"
+          key={location.pathname}
+          element={<PokemonCard />}
+        />
       </Route>
       <Route path="*" element={<NotFound404 />} />
     </Routes>

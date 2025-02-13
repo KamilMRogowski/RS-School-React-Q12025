@@ -40,7 +40,7 @@ export default function SearchBox() {
       <Link
         data-testid="search-button"
         className={`main-button ${darkTheme ? 'main-button--dark-mode' : ''}`}
-        to={query ? `pokemon/${query.trim()}` : '#'}
+        to={query ? `pokemon/${query.trim().toLowerCase()}` : '#'}
       >
         Search
       </Link>

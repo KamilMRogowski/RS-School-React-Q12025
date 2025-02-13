@@ -2,11 +2,11 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router';
 import PokemonCard from './PokemonCard';
 import DarkThemeProvider from '../../context/DarkThemeContext';
-import useFetchPokemonFromAPI from '../../hooks/fetchPokemonFromAPI';
 import { expect, it, describe, vi, Mock } from 'vitest';
 import '@testing-library/jest-dom';
+import { useGetPokemonDetailsQuery } from '../../store/api/pokemonApi';
 
-vi.mock('../../hooks/fetchPokemonFromAPI');
+vi.mock('../../store/api/pokemonApi');
 
 const mockPokemonData = {
   name: 'pikachu',
@@ -26,10 +26,10 @@ const mockPokemonData = {
 
 describe('PokemonCard Component', () => {
   it('displays a loading indicator while fetching data', () => {
-    (useFetchPokemonFromAPI as Mock).mockReturnValue({
+    (useGetPokemonDetailsQuery as Mock).mockReturnValue({
       data: {},
-      loading: true,
-      error: '',
+      isLoading: true,
+      error: {},
     });
 
     render(
@@ -44,10 +44,10 @@ describe('PokemonCard Component', () => {
   });
 
   it('renders detailed Pokemon data correctly', () => {
-    (useFetchPokemonFromAPI as Mock).mockReturnValue({
+    (useGetPokemonDetailsQuery as Mock).mockReturnValue({
       data: mockPokemonData,
-      loading: false,
-      error: '',
+      isLoading: false,
+      error: {},
     });
 
     render(
@@ -66,10 +66,10 @@ describe('PokemonCard Component', () => {
   });
 
   it('hides component when close button is clicked', () => {
-    (useFetchPokemonFromAPI as Mock).mockReturnValue({
+    (useGetPokemonDetailsQuery as Mock).mockReturnValue({
       data: mockPokemonData,
-      loading: false,
-      error: '',
+      isLoading: false,
+      error: {},
     });
 
     render(

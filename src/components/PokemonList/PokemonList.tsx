@@ -1,9 +1,9 @@
 import './PokemonList.scss';
 import { Link, useParams, useNavigate, useLocation } from 'react-router';
-import useFetchPokemonFromAPI from '../../hooks/fetchPokemonFromAPI';
 import { useDarkTheme } from '../../context/DarkThemeContext';
 import Loader from '../Loader/Loader';
 import Pagination from '../Pagination/Pagination';
+import { useGetPokemonListQuery } from '../../store/api/pokemonApi';
 
 export const ITEMS_PER_PAGE = 20;
 
@@ -13,10 +13,14 @@ export default function PokemonList() {
   const currentPage = Number(pageId) || 1;
   const navigate = useNavigate();
   const location = useLocation();
-  const { data, loading, error } = useFetchPokemonFromAPI(
-    'https://pokeapi.co/api/v2/pokemon/',
-    `?offset=${String((currentPage - 1) * ITEMS_PER_PAGE)}&limit=${String(ITEMS_PER_PAGE)}`
-  );
+  const {
+    data: pokemonList,
+    error,
+    isLoading,
+  } = useGetPokemonListQuery({
+    offset: currentPage - 1,
+    limit: ITEMS_PER_PAGE,
+  });
 
   const closePokeCard = () => {
     if (location.pathname.includes('pokemon')) {
@@ -24,13 +28,13 @@ export default function PokemonList() {
     }
   };
 
-  if ('results' in data) {
-    return (
-      <div className={`pokemon-list`} onClick={closePokeCard}>
-        <div className="loader">{loading && <Loader />}</div>
-        <h2>Pokemon examples to get you started:</h2>
-        <div className="pokemon-list__items" data-testid="pokemon-list-items">
-          {data.results.map((pokemon) => {
+  return (
+    <div className={`pokemon-list`} onClick={closePokeCard}>
+      <div className="loader">{isLoading && <Loader />}</div>
+      <h2>Pokemon examples to get you started:</h2>
+      <div className="pokemon-list__items" data-testid="pokemon-list-items">
+        {pokemonList &&
+          pokemonList.results.map((pokemon) => {
             return (
               <Link
                 key={pokemon.name}
@@ -41,14 +45,13 @@ export default function PokemonList() {
               </Link>
             );
           })}
-        </div>
-        {data.results.length > 0 && <Pagination />}
-        {error && (
-          <div>
-            <h3 data-testid="pokemon-list-error">{error}</h3>
-          </div>
-        )}
       </div>
-    );
-  }
+      {pokemonList && pokemonList.results.length > 0 && <Pagination />}
+      {error && 'message' in error && (
+        <div>
+          <h3 data-testid="pokemon-list-error">{error.message}</h3>
+        </div>
+      )}
+    </div>
+  );
 }
