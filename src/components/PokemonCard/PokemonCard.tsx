@@ -45,18 +45,14 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
         setChecked(true);
       }
     }
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCheckboxChange = () => {
     if (pokemonDetails) {
       if (!checked) {
         dispatch(addSelectedItem(pokemonDetails));
-        console.log('added');
       } else {
         dispatch(removeSelectedItem(pokemonDetails));
-        console.log('removed');
       }
     }
     setChecked(!checked);

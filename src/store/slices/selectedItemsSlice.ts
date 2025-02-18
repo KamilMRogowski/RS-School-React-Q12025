@@ -18,7 +18,9 @@ const selectedItemsSlice = createSlice({
       state.SelectedItems.push(action.payload);
     },
     removeSelectedItem: (state, action: PayloadAction<Pokemon>) => {
-      state.SelectedItems.filter((pokemon) => pokemon.id !== action.payload.id);
+      state.SelectedItems = state.SelectedItems.filter(
+        (pokemon) => pokemon.id !== action.payload.id
+      );
     },
     clearSelectedItems: (state) => {
       state.SelectedItems = initialState.SelectedItems;
