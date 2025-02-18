@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router';
 import SearchBox from './SearchBox';
 import { vi, it, expect, describe, Mock } from 'vitest';
 import '@testing-library/jest-dom';
-import useGetQueryFromLS from '../../hooks/getQueryFromLS';
+import useGetQueryFromLS from '../../hooks/useGetQueryFromLS';
 import DarkThemeProvider from '../../context/DarkThemeContext';
 
 vi.mock('../../hooks/getQueryFromLS');

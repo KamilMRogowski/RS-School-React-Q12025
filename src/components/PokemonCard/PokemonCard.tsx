@@ -19,7 +19,7 @@ interface PokemonCardProps {
 export default function PokemonCard({ pokemon }: PokemonCardProps) {
   const [checked, setChecked] = useState(false);
   const selected = useSelector((state: RootState) => {
-    return state.selectedItems;
+    return state.selectedItems.SelectedItems;
   });
   const { darkTheme } = useDarkTheme();
   const { pageId } = useParams();
@@ -38,14 +38,16 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
 
   useEffect(() => {
     if (pokemonDetails) {
-      const found = selected.SelectedItems.find(
+      const found = selected.find(
         (pokemon) => pokemon.id === pokemonDetails.id
       );
       if (found) {
         setChecked(true);
+      } else {
+        setChecked(false);
       }
     }
-  }, []);
+  }, [selected, pokemonDetails]);
 
   const handleCheckboxChange = () => {
     if (pokemonDetails) {
@@ -84,14 +86,19 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
           <p>Failed to fetch image</p>
         )}
       </div>
-      <label>
-        Download:
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={handleCheckboxChange}
-        />
-      </label>
+      <div
+        className={`pokemon-card__download ${darkTheme ? 'pokemon-card__download--dark-mode' : ''}`}
+      >
+        <label>
+          Download:
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={handleCheckboxChange}
+          />
+          <span className="checkbox"></span>
+        </label>
+      </div>
     </div>
   );
 }

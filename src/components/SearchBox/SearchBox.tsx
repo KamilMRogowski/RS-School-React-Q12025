@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
-import useGetQueryFromLS from '../../hooks/getQueryFromLS';
+import useGetQueryFromLS from '../../hooks/useGetQueryFromLS';
 import { useDarkTheme } from '../../context/DarkThemeContext';
 import './SearchBox.scss';
 

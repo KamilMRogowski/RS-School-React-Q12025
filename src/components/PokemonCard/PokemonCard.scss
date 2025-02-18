@@ -28,3 +28,13 @@
   margin: 0;
   text-transform: capitalize;
 }
+
+.pokemon-card__download {
+  padding: 5px;
+
+  &--dark-mode {
+    & input[type='checkbox'] {
+      accent-color: $dark-mode-bg2-hover;
+    }
+  }
+}
