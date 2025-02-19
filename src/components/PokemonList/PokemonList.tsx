@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { clearCurrentPage } from '../../store/slices/currentPageSlice';
 
 export const ITEMS_PER_PAGE = 10;
+
 export default function PokemonList() {
   const dispatch = useDispatch();
   const { pageId } = useParams();

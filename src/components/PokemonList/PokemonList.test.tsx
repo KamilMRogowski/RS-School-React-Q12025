@@ -1,12 +1,12 @@
 import { it, expect, describe, vi, Mock } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router';
-import DarkThemeProvider from '../../context/DarkThemeContext';
+import { screen } from '@testing-library/react';
+import { MemoryRouter, Routes, Route, BrowserRouter } from 'react-router';
 import { ITEMS_PER_PAGE } from './PokemonList';
 import PokemonList from './PokemonList';
 import { useGetPokemonListQuery } from '../../store/api/pokemonApi';
 import { PokemonList as PokemonListType } from '../../utils/interfaces/pokemonApiResponse';
 import '@testing-library/jest-dom';
+import renderWithProviders from '../../utils/test-utils';
 
 vi.mock('../../store/api/pokemonApi');
 
@@ -25,15 +25,13 @@ describe('PokemonList Component', () => {
     (useGetPokemonListQuery as Mock).mockReturnValue({
       data: mockResults,
       isLoading: false,
-      error: {},
+      error: null,
     });
 
-    render(
-      <DarkThemeProvider>
-        <BrowserRouter>
-          <PokemonList />
-        </BrowserRouter>
-      </DarkThemeProvider>
+    renderWithProviders(
+      <BrowserRouter>
+        <PokemonList />
+      </BrowserRouter>
     );
 
     const pokemonListItems = screen.getByTestId('pokemon-list-items');
@@ -50,16 +48,14 @@ describe('PokemonList Component', () => {
 
     (useGetPokemonListQuery as Mock).mockReturnValue({
       data: mockResults,
-      loading: false,
+      isLoading: false,
       error: { message: 'Pokemon not found' },
     });
 
-    render(
-      <DarkThemeProvider>
-        <BrowserRouter>
-          <PokemonList />
-        </BrowserRouter>
-      </DarkThemeProvider>
+    renderWithProviders(
+      <BrowserRouter>
+        <PokemonList />
+      </BrowserRouter>
     );
 
     const pokemonListError = screen.getByTestId('pokemon-list-error');
@@ -81,18 +77,16 @@ describe('PokemonList Component', () => {
 
     (useGetPokemonListQuery as Mock).mockReturnValue({
       data: mockResults,
-      loading: false,
-      error: '',
+      isLoading: false,
+      error: null,
     });
 
-    render(
-      <DarkThemeProvider>
-        <MemoryRouter initialEntries={['/page/3']}>
-          <Routes>
-            <Route path="/page/:pageId" element={<PokemonList />} />
-          </Routes>
-        </MemoryRouter>
-      </DarkThemeProvider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/page/3']}>
+        <Routes>
+          <Route path="/page/:pageId" element={<PokemonList />} />
+        </Routes>
+      </MemoryRouter>
     );
 
     const pokemonCard = screen.getByText('pikachu');

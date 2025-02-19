@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import useGetQueryFromLS from '../../hooks/useGetQueryFromLS';
 import DarkThemeProvider from '../../context/DarkThemeContext';
 
-vi.mock('../../hooks/getQueryFromLS');
+vi.mock('../../hooks/useGetQueryFromLS');
 
 describe('SearchBox Component', () => {
   it('clicking Search button redirects to correct subpage and saves to local storage', () => {

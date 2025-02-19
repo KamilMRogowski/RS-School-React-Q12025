@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router';
 import PokemonCardDetails from './PokemonCardDetails';
-import DarkThemeProvider from '../../context/DarkThemeContext';
 import { expect, it, describe, vi, Mock } from 'vitest';
 import '@testing-library/jest-dom';
 import { useGetPokemonDetailsQuery } from '../../store/api/pokemonApi';
+import renderWithProviders from '../../utils/test-utils';
 
 vi.mock('../../store/api/pokemonApi');
 
@@ -24,7 +24,7 @@ const mockPokemonData = {
   ],
 };
 
-describe('PokemonCard Component', () => {
+describe('PokemonCardDetails Component', () => {
   it('displays a loading indicator while fetching data', () => {
     (useGetPokemonDetailsQuery as Mock).mockReturnValue({
       data: {},
@@ -32,12 +32,12 @@ describe('PokemonCard Component', () => {
       error: {},
     });
 
-    render(
-      <DarkThemeProvider>
-        <MemoryRouter>
-          <PokemonCardDetails />
-        </MemoryRouter>
-      </DarkThemeProvider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/pokemon/pikachu']}>
+        <Routes>
+          <Route path="pokemon/:pokemonName" element={<PokemonCardDetails />} />
+        </Routes>
+      </MemoryRouter>
     );
 
     expect(screen.getByTestId('loader')).toBeInTheDocument();
@@ -50,12 +50,12 @@ describe('PokemonCard Component', () => {
       error: {},
     });
 
-    render(
-      <DarkThemeProvider>
-        <MemoryRouter>
-          <PokemonCardDetails />
-        </MemoryRouter>
-      </DarkThemeProvider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/pokemon/pikachu']}>
+        <Routes>
+          <Route path="pokemon/:pokemonName" element={<PokemonCardDetails />} />
+        </Routes>
+      </MemoryRouter>
     );
 
     expect(screen.getByText('I choose you!')).toBeInTheDocument();
@@ -72,14 +72,12 @@ describe('PokemonCard Component', () => {
       error: {},
     });
 
-    render(
-      <DarkThemeProvider>
-        <MemoryRouter initialEntries={['/page/3']}>
-          <Routes>
-            <Route path="/page/:pageId" element={<PokemonCardDetails />} />
-          </Routes>
-        </MemoryRouter>
-      </DarkThemeProvider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/page/3']}>
+        <Routes>
+          <Route path="/page/:pageId" element={<PokemonCardDetails />} />
+        </Routes>
+      </MemoryRouter>
     );
 
     const closeButton = screen.getByText('X');

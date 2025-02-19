@@ -5,13 +5,12 @@ interface SelectedItemsState {
   SelectedItems: Pokemon[];
 }
 
-// SAVE AN ARRAY OF POKEMON DOWNLOADED FROM API
 const initialState: SelectedItemsState = {
   SelectedItems: [],
 };
 
 const selectedItemsSlice = createSlice({
-  name: 'currentPage',
+  name: 'selectedItems',
   initialState,
   reducers: {
     addSelectedItem: (state, action: PayloadAction<Pokemon>) => {

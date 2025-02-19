@@ -9,20 +9,18 @@ export const pokemonApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://pokeapi.co/api/v2/',
   }),
-  endpoints: (builder) => {
-    return {
-      getPokemonList: builder.query<
-        PokemonList,
-        { offset: number; limit: number }
-      >({
-        query: ({ offset, limit }) =>
-          `pokemon?offset=${String(offset)}&limit=${String(limit)}`,
-      }),
-      getPokemonDetails: builder.query<Pokemon, string>({
-        query: (pokemon) => `pokemon/${pokemon}`,
-      }),
-    };
-  },
+  endpoints: (builder) => ({
+    getPokemonList: builder.query<
+      PokemonList,
+      { offset: number; limit: number }
+    >({
+      query: ({ offset, limit }) =>
+        `pokemon?offset=${String(offset)}&limit=${String(limit)}`,
+    }),
+    getPokemonDetails: builder.query<Pokemon, string>({
+      query: (pokemon) => `pokemon/${pokemon}`,
+    }),
+  }),
 });
 
 export const { useGetPokemonListQuery, useGetPokemonDetailsQuery } = pokemonApi;

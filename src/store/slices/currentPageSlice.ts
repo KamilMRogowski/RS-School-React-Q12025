@@ -5,7 +5,6 @@ interface currentPageState {
   currentPageItems: Pokemon[];
 }
 
-// SAVE AN ARRAY OF POKEMON DOWNLOADED FROM API
 const initialState: currentPageState = {
   currentPageItems: [],
 };
