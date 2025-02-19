@@ -1,0 +1,24 @@
+.flyout {
+  margin-top: auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &--dark-mode {
+    color: $dark-mode-text;
+  }
+}
+
+.flyout__text {
+  margin: 0;
+  padding: 10px;
+}
+
+.flyout__buttons {
+  display: flex;
+
+  .main-button {
+    transform: scale(0.8);
+  }
+}
