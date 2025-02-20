@@ -53,9 +53,9 @@ export default function PokemonList() {
         </div>
       )}
       {pokemonList && pokemonList.results.length > 0 && <Pagination />}
-      {error && 'message' in error && (
+      {error && (
         <div>
-          <h3 data-testid="pokemon-list-error">{error.message}</h3>
+          <h3 data-testid="pokemon-list-error">Failed to load Pokemon List</h3>
         </div>
       )}
     </div>

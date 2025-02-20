@@ -1,5 +1,5 @@
 import './PokemonCard.scss';
-import { useNavigate, useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import Loader from '../Loader/Loader';
 import { useDarkTheme } from '../../context/DarkThemeContext';
 import { useGetPokemonDetailsQuery } from '../../store/api/pokemonApi';
@@ -23,7 +23,6 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
   });
   const { darkTheme } = useDarkTheme();
   const { pageId } = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     data: pokemonDetails,
@@ -31,10 +30,6 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
     isFetching,
     error,
   } = useGetPokemonDetailsQuery(pokemon);
-
-  const openPokeCard = () => {
-    void navigate(`/page/${pageId as string}/pokemon/${pokemon}`);
-  };
 
   useEffect(() => {
     if (pokemonDetails) {
@@ -68,8 +63,8 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
 
   return (
     <div>
-      <div
-        onClick={openPokeCard}
+      <Link
+        to={`/page/${pageId as string}/pokemon/${pokemon}`}
         className={`pokemon-card ${darkTheme ? 'pokemon-card--dark-mode' : ''}`}
       >
         {!error && <h3 className="pokemon-card__name">{pokemon}</h3>}
@@ -85,7 +80,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
         ) : (
           <p>Failed to fetch image</p>
         )}
-      </div>
+      </Link>
       <div
         className={`pokemon-card__download ${darkTheme ? 'pokemon-card__download--dark-mode' : ''}`}
       >

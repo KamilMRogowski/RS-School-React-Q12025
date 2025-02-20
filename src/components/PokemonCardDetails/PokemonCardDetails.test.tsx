@@ -1,55 +1,22 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router';
 import PokemonCardDetails from './PokemonCardDetails';
-import { expect, it, describe, vi, Mock } from 'vitest';
+import { expect, it, describe } from 'vitest';
 import '@testing-library/jest-dom';
-import { useGetPokemonDetailsQuery } from '../../store/api/pokemonApi';
 import renderWithProviders from '../../utils/test-utils';
-
-vi.mock('../../store/api/pokemonApi');
-
-const mockPokemonData = {
-  name: 'pikachu',
-  height: 4,
-  weight: 60,
-  sprites: {
-    front_default: 'front-image-url',
-    back_default: 'back-image-url',
-  },
-  types: [
-    {
-      slot: 1,
-      type: { name: 'electric', url: 'type-url' },
-    },
-  ],
-};
 
 describe('PokemonCardDetails Component', () => {
   it('displays a loading indicator while fetching data', () => {
-    (useGetPokemonDetailsQuery as Mock).mockReturnValue({
-      data: {},
-      isLoading: true,
-      error: {},
-    });
-
     renderWithProviders(
       <MemoryRouter initialEntries={['/pokemon/pikachu']}>
-        <Routes>
-          <Route path="pokemon/:pokemonName" element={<PokemonCardDetails />} />
-        </Routes>
+        <PokemonCardDetails />
       </MemoryRouter>
     );
 
     expect(screen.getByTestId('loader')).toBeInTheDocument();
   });
 
-  it('renders detailed Pokemon data correctly', () => {
-    (useGetPokemonDetailsQuery as Mock).mockReturnValue({
-      data: mockPokemonData,
-      isLoading: false,
-      error: {},
-    });
-
+  it('renders detailed Pokemon data correctly', async () => {
     renderWithProviders(
       <MemoryRouter initialEntries={['/pokemon/pikachu']}>
         <Routes>
@@ -58,29 +25,32 @@ describe('PokemonCardDetails Component', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText('I choose you!')).toBeInTheDocument();
-    expect(screen.getByText('pikachu')).toBeInTheDocument();
-    expect(screen.getByText('Height: 40 cm')).toBeInTheDocument();
-    expect(screen.getByText('Weight: 60 hectograms')).toBeInTheDocument();
-    expect(screen.getByText('electric')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('I choose you!')).toBeInTheDocument();
+      expect(screen.getByText('pikachu')).toBeInTheDocument();
+      expect(screen.getByText('Height: 40 cm')).toBeInTheDocument();
+      expect(screen.getByText('Weight: 60 hectograms')).toBeInTheDocument();
+      expect(screen.getByText('electric')).toBeInTheDocument();
+    });
   });
 
-  it('hides component when close button is clicked', () => {
-    (useGetPokemonDetailsQuery as Mock).mockReturnValue({
-      data: mockPokemonData,
-      isLoading: false,
-      error: {},
-    });
-
+  it('hides component when close button is clicked', async () => {
     renderWithProviders(
-      <MemoryRouter initialEntries={['/page/3']}>
+      <MemoryRouter initialEntries={['/page/3/pokemon/pikachu']}>
         <Routes>
-          <Route path="/page/:pageId" element={<PokemonCardDetails />} />
+          <Route path="page/:pageId">
+            <Route
+              path="pokemon/:pokemonName"
+              element={<PokemonCardDetails />}
+            />
+          </Route>
         </Routes>
       </MemoryRouter>
     );
 
-    const closeButton = screen.getByText('X');
-    expect(closeButton.closest('a')).toHaveAttribute('href', '/page/3');
+    await waitFor(() => {
+      const closeButton = screen.getByRole('link', { name: 'X' });
+      expect(closeButton).toHaveAttribute('href', '/page/3');
+    });
   });
 });
