@@ -1,0 +1,42 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dark-mode {
+  background-color: $dark-mode-bg;
+  color: $dark-mode-text;
+}
+
+.main-button {
+  padding: 10px 15px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.main-button--dark-mode {
+  background-color: $dark-mode-bg2;
+
+  &:hover {
+    background-color: $dark-mode-bg2-hover;
+  }
+}

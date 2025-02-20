@@ -1,0 +1,27 @@
+.error-button {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  height: 40px;
+  width: 150px;
+  font-size: 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #a71d2a;
+  }
+
+  &--dark-mode {
+    background-color: #6b121b;
+    color: $dark-mode-text;
+
+    &:hover {
+      background-color: #7e1520;
+    }
+  }
+}
