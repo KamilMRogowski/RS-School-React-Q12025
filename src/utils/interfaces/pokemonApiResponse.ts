@@ -1,3 +1,4 @@
+import { ITEMS_PER_PAGE } from '../../components/PokemonList/PokemonList';
 export type PokemonApiResponse = PokemonList | Pokemon;
 
 export interface PokemonList {
@@ -48,8 +49,45 @@ interface PokemonSprites {
 }
 
 export const pokemonListResponse: PokemonList = {
-  count: 0,
+  count: ITEMS_PER_PAGE,
   next: '',
   previous: '',
-  results: [{ name: '', url: '' }],
+  results: Array.from({ length: ITEMS_PER_PAGE }, (_, i) => ({
+    name: `pokemon-${String(i + 1)}`,
+    url: `https://pokeapi.co/api/v2/pokemon/${String(i + 1)}`,
+  })),
+};
+
+export const pokemonResponse: Pokemon = {
+  abilities: [],
+  base_experience: 112,
+  cries: {},
+  forms: [],
+  game_indices: [],
+  height: 4,
+  held_items: [],
+  id: 25,
+  is_default: true,
+  location_area_encounters: '',
+  moves: [],
+  name: 'pikachu',
+  order: 35,
+  past_abilities: [],
+  past_types: [],
+  species: {},
+  sprites: {
+    front_default:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+  },
+  stats: [],
+  types: [
+    {
+      slot: 1,
+      type: {
+        name: 'electric',
+        url: '',
+      },
+    },
+  ],
+  weight: 60,
 };

@@ -5,7 +5,9 @@ import './styles/index.scss';
 import App from './App.tsx';
 import DarkThemeProvider from './context/DarkThemeContext.tsx';
 import { Provider } from 'react-redux';
-import { store } from './store/store.ts';
+import { setupStore } from './store/store.ts';
+
+const store = setupStore();
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>

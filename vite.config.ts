@@ -20,6 +20,7 @@ export default defineConfig({
         'src/__tests__/setup.ts',
       ],
     },
+    setupFiles: './src/utils/mocks/testsSetup.ts',
   },
   css: {
     preprocessorOptions: {
