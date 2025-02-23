@@ -1,0 +1,21 @@
+.search-container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  &__input {
+    width: 20vw;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+
+    &--dark-mode {
+      background-color: $dark-mode-bg2;
+      color: white;
+      border-color: $dark-mode-bg;
+    }
+  }
+}

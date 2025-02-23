@@ -1,0 +1,15 @@
+.pagination {
+  display: flex;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.current {
+  background-color: #0056b3;
+  pointer-events: none;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}

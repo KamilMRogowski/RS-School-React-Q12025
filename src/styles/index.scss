@@ -1,0 +1,95 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-button {
+  padding: 10px 15px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.dark-mode {
+  background-color: $dark-mode-bg;
+  color: $dark-mode-text;
+
+  .main-button {
+    background-color: $dark-mode-bg2;
+
+    &:hover {
+      background-color: $dark-mode-bg2-hover;
+    }
+  }
+
+  .search-container__input {
+    background-color: $dark-mode-bg2;
+    color: white;
+    border-color: $dark-mode-bg;
+  }
+
+  .pokemon-card-details {
+    background-color: $dark-mode-bg2;
+    border-color: $dark-mode-bg2;
+  }
+
+  .pokemon-card-details__close-button {
+    border-color: $dark-mode-text;
+    color: $dark-mode-text;
+
+    &:hover {
+      background-color: $dark-mode-bg;
+    }
+  }
+
+  .pokemon-card {
+    color: $dark-mode-text;
+    border-color: $dark-mode-bg2;
+
+    &:hover {
+      background-color: $dark-mode-bg2-hover;
+    }
+  }
+
+  .pokemon-card__download {
+    & input[type='checkbox'] {
+      accent-color: $dark-mode-bg2-hover;
+    }
+  }
+
+  .current {
+    background-color: $dark-mode-bg2-hover;
+    pointer-events: none;
+  }
+
+  .lds-roller {
+    color: $dark-mode-text;
+  }
+
+  .error-button {
+    background-color: #6b121b;
+    color: $dark-mode-text;
+
+    &:hover {
+      background-color: #7e1520;
+    }
+  }
+}
