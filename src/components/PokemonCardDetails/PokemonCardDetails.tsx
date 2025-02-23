@@ -1,14 +1,11 @@
 import './PokemonCardDetails.scss';
 import { Link, useParams } from 'react-router';
 import Loader from '../Loader/Loader';
-import { useDarkTheme } from '../../context/DarkThemeContext';
 import { useGetPokemonDetailsQuery } from '../../store/api/pokemonApi';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 
-// GET POKEMON DATA FROM STORE FOR CURRENT PAGE, JUST FILTER BY NAME
 export default function PokemonCardDetails() {
-  const { darkTheme } = useDarkTheme();
   const { pageId, pokemonName } = useParams();
   const pokemonFromStore = useSelector((state: RootState) =>
     state.currentPage.currentPageItems.find(
@@ -27,11 +24,9 @@ export default function PokemonCardDetails() {
   const pokemonData = pokemonFromStore || pokemon;
 
   return (
-    <div
-      className={`pokemon-card-details ${darkTheme ? 'pokemon-card-details--dark-mode' : ''}`}
-    >
+    <div className="pokemon-card-details">
       <Link
-        className={`pokemon-card-details__close-button ${darkTheme ? 'pokemon-card-details__close-button--dark-mode' : ''}`}
+        className="pokemon-card-details__close-button"
         to={`/page/${pageId as string}`}
       >
         X

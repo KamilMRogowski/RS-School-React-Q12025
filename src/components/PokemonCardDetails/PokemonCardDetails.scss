@@ -6,11 +6,6 @@
   border: 2px solid black;
   display: flex;
   flex-direction: column;
-
-  &--dark-mode {
-    background-color: $dark-mode-bg2;
-    border-color: $dark-mode-bg2;
-  }
 }
 
 .pokemon-card-details__close-button {
@@ -28,15 +23,6 @@
 
   &:hover {
     background-color: #ccc;
-  }
-
-  &--dark-mode {
-    border-color: $dark-mode-text;
-    color: $dark-mode-text;
-
-    &:hover {
-      background-color: $dark-mode-bg;
-    }
   }
 }
 

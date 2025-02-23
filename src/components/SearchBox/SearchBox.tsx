@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import useGetQueryFromLS from '../../hooks/useGetQueryFromLS';
-import { useDarkTheme } from '../../context/DarkThemeContext';
 import './SearchBox.scss';
 
 export default function SearchBox() {
-  const { darkTheme } = useDarkTheme();
   const { pokemonName } = useParams();
   const [query, setQuery] = useState('');
   const queryLS = useGetQueryFromLS();
@@ -31,7 +29,7 @@ export default function SearchBox() {
   return (
     <div className="search-container">
       <input
-        className={`search-container__input ${darkTheme ? 'search-container__input--dark-mode' : ''}`}
+        className="search-container__input"
         type="text"
         placeholder="Search your favorite pokemon"
         onChange={handleChange}
@@ -39,7 +37,7 @@ export default function SearchBox() {
       />
       <Link
         data-testid="search-button"
-        className={`main-button ${darkTheme ? 'main-button--dark-mode' : ''}`}
+        className="main-button"
         to={query ? `pokemon/${query.trim().toLowerCase()}` : '#'}
       >
         Search

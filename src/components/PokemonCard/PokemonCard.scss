@@ -14,15 +14,6 @@
   &:hover {
     background-color: #ccc;
   }
-
-  &--dark-mode {
-    color: $dark-mode-text;
-    border-color: $dark-mode-bg2;
-
-    &:hover {
-      background-color: $dark-mode-bg2-hover;
-    }
-  }
 }
 
 .pokemon-card__name {
@@ -33,10 +24,4 @@
 
 .pokemon-card__download {
   padding: 5px;
-
-  &--dark-mode {
-    & input[type='checkbox'] {
-      accent-color: $dark-mode-bg2-hover;
-    }
-  }
 }

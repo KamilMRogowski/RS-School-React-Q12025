@@ -1,7 +1,6 @@
 import './PokemonCard.scss';
 import { Link, useParams } from 'react-router';
 import Loader from '../Loader/Loader';
-import { useDarkTheme } from '../../context/DarkThemeContext';
 import { useGetPokemonDetailsQuery } from '../../store/api/pokemonApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -21,7 +20,6 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
   const selected = useSelector((state: RootState) => {
     return state.selectedItems.SelectedItems;
   });
-  const { darkTheme } = useDarkTheme();
   const { pageId } = useParams();
   const dispatch = useDispatch();
   const {
@@ -65,7 +63,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
     <div>
       <Link
         to={`/page/${pageId as string}/pokemon/${pokemon}`}
-        className={`pokemon-card ${darkTheme ? 'pokemon-card--dark-mode' : ''}`}
+        className="pokemon-card"
       >
         {!error && <h3 className="pokemon-card__name">{pokemon}</h3>}
         {isLoading || isFetching ? (
@@ -81,9 +79,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
           <p>Failed to fetch image</p>
         )}
       </Link>
-      <div
-        className={`pokemon-card__download ${darkTheme ? 'pokemon-card__download--dark-mode' : ''}`}
-      >
+      <div className="pokemon-card__download">
         <label>
           Download:
           <input

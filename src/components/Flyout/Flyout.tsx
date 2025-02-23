@@ -16,7 +16,7 @@ export default function Flyout() {
     dispatch(clearSelectedItems());
   };
 
-  if (selectedItems.length > 0) {
+  if (selectedItems.length) {
     return (
       <div className={`flyout ${darkTheme ? 'flyout--dark-mode' : ''}`}>
         <p className="flyout__text">
