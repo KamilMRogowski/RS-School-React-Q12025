@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from 'react-router';
-import HomePage from './views/Homepage/Homepage';
+import HomePage from './components/Homepage/Homepage';
 import NotFound404 from './components/NotFound404/NotFound404';
 import PokemonCardDetails from './components/PokemonCardDetails/PokemonCardDetails';
 

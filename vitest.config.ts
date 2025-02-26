@@ -1,11 +1,10 @@
-/// <reference types="vitest" />
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  base: '/RS-School-React-Q12025/',
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  plugins: [react(), tsconfigPaths()],
   test: {
     globals: true,
     environment: 'jsdom',
@@ -21,12 +20,5 @@ export default defineConfig({
       ],
     },
     setupFiles: './src/utils/mocks/testsSetup.ts',
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "/src/styles/variables" as *;`,
-      },
-    },
   },
 });
