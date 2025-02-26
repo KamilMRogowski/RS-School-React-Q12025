@@ -16,3 +16,16 @@
     background-color: #a71d2a;
   }
 }
+
+// Dark mode
+
+:global(.dark-mode) {
+  .error-button {
+    background-color: #6b121b;
+    color: $dark-mode-text;
+
+    &:hover {
+      background-color: #7e1520;
+    }
+  }
+}

@@ -1,35 +1,22 @@
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Routes, Route } from 'react-router';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Pagination from './Pagination';
-import DarkThemeProvider from '../../context/DarkThemeContext';
 import { expect, it, describe } from 'vitest';
 import '@testing-library/jest-dom';
+import mockRouter from 'next-router-mock';
+import renderWithProviders from '../../utils/test-utils';
 
 describe('Pagination Component', () => {
-  it('displays the current page correctly', () => {
-    render(
-      <DarkThemeProvider>
-        <MemoryRouter initialEntries={['/page/3']}>
-          <Routes>
-            <Route path="/page/:pageId" element={<Pagination />} />
-          </Routes>
-        </MemoryRouter>
-      </DarkThemeProvider>
-    );
+  it('displays the current page correctly', async () => {
+    await mockRouter.push('/page/3');
+    renderWithProviders(<Pagination />);
 
     const currentPage = screen.getByTestId('current-page');
     expect(currentPage.innerHTML).toBe('3');
   });
 
   it("disables 'Previous Page' button on page 1", () => {
-    render(
-      <DarkThemeProvider>
-        <MemoryRouter initialEntries={['/page/1']}>
-          <Pagination />
-        </MemoryRouter>
-      </DarkThemeProvider>
-    );
+    renderWithProviders(<Pagination />);
 
     const prevButton = screen.getByText('Previous Page');
     expect(prevButton).toHaveAttribute('aria-disabled', 'true');
@@ -38,15 +25,7 @@ describe('Pagination Component', () => {
 
   it("updates the URL when 'Next Page' is clicked", async () => {
     const user = userEvent.setup();
-    render(
-      <DarkThemeProvider>
-        <MemoryRouter initialEntries={['/page/2']}>
-          <Routes>
-            <Route path="/page/:pageId" element={<Pagination />} />
-          </Routes>
-        </MemoryRouter>
-      </DarkThemeProvider>
-    );
+    renderWithProviders(<Pagination />);
 
     const nextPageButton = screen.getByText('Next Page');
     expect(nextPageButton).toHaveAttribute('href', '/page/3');
@@ -59,15 +38,7 @@ describe('Pagination Component', () => {
 
   it("updates the URL when 'Previous Page' is clicked", async () => {
     const user = userEvent.setup();
-    render(
-      <DarkThemeProvider>
-        <MemoryRouter initialEntries={['/page/3']}>
-          <Routes>
-            <Route path="/page/:pageId" element={<Pagination />} />
-          </Routes>
-        </MemoryRouter>
-      </DarkThemeProvider>
-    );
+    renderWithProviders(<Pagination />);
 
     const prevPageButton = screen.getByText('Previous Page');
     expect(prevPageButton).toHaveAttribute('href', '/page/2');

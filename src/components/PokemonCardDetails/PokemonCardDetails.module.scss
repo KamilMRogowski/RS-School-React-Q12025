@@ -48,3 +48,21 @@
   flex-direction: column;
   justify-content: center;
 }
+
+// Dark mode
+
+:global(.dark-mode) {
+  .pokemon-card-details {
+    background-color: $dark-mode-bg2;
+    border-color: $dark-mode-bg2;
+  }
+
+  .pokemon-card-details__close-button {
+    border-color: $dark-mode-text;
+    color: $dark-mode-text;
+
+    &:hover {
+      background-color: $dark-mode-bg;
+    }
+  }
+}

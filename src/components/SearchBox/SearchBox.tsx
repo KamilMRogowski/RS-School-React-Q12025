@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import useGetQueryFromLS from '../../hooks/useGetQueryFromLS';
-import './SearchBox.scss';
+import styles from './SearchBox.module.scss';
 
 export default function SearchBox() {
-  const { pokemonName } = useParams();
+  const router = useRouter();
+  const { pokemonName, pageId } = router.query;
   const [query, setQuery] = useState('');
   const queryLS = useGetQueryFromLS();
 
@@ -18,7 +20,7 @@ export default function SearchBox() {
 
   useEffect(() => {
     if (pokemonName) {
-      setQuery(pokemonName);
+      setQuery(pokemonName as string);
     }
   }, [pokemonName]);
 
@@ -27,9 +29,9 @@ export default function SearchBox() {
   };
 
   return (
-    <div className="search-container">
+    <div className={styles['search-container']}>
       <input
-        className="search-container__input"
+        className={styles['search-container__input']}
         type="text"
         placeholder="Search your favorite pokemon"
         onChange={handleChange}
@@ -38,7 +40,11 @@ export default function SearchBox() {
       <Link
         data-testid="search-button"
         className="main-button"
-        to={query ? `pokemon/${query.trim().toLowerCase()}` : '#'}
+        href={
+          query
+            ? `/page/${pageId as string}/pokemon/${query.trim().toLowerCase()}`
+            : '#'
+        }
       >
         Search
       </Link>

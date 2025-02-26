@@ -93,3 +93,11 @@
     transform: rotate(360deg);
   }
 }
+
+// Dark mode
+
+:global(.dark-mode) {
+  .lds-roller {
+    color: $dark-mode-text;
+  }
+}

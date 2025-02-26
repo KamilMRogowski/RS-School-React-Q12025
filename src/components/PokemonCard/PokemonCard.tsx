@@ -1,5 +1,5 @@
-import './PokemonCard.scss';
-import { Link, useParams } from 'react-router';
+import styles from './PokemonCard.module.scss';
+import Link from 'next/link';
 import Loader from '../Loader/Loader';
 import { useGetPokemonDetailsQuery } from '../../store/api/pokemonApi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import {
   removeSelectedItem,
 } from '../../store/slices/selectedItemsSlice';
 import { RootState } from '../../store/store';
+import { useRouter } from 'next/router';
 
 interface PokemonCardProps {
   pokemon: string;
@@ -20,7 +21,8 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
   const selected = useSelector((state: RootState) => {
     return state.selectedItems.SelectedItems;
   });
-  const { pageId } = useParams();
+  const router = useRouter();
+  const pageId = router.query.pageId as string;
   const dispatch = useDispatch();
   const {
     data: pokemonDetails,
@@ -62,10 +64,10 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
   return (
     <div>
       <Link
-        to={`/page/${pageId as string}/pokemon/${pokemon}`}
-        className="pokemon-card"
+        href={`/page/${pageId}/pokemon/${pokemon}`}
+        className={styles['pokemon-card']}
       >
-        {!error && <h3 className="pokemon-card__name">{pokemon}</h3>}
+        {!error && <h3 className={styles['pokemon-card__name']}>{pokemon}</h3>}
         {isLoading || isFetching ? (
           <Loader />
         ) : error && 'data' in error ? (
@@ -79,7 +81,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
           <p>Failed to fetch image</p>
         )}
       </Link>
-      <div className="pokemon-card__download">
+      <div className={styles['pokemon-card__download']}>
         <label>
           Download:
           <input
@@ -87,7 +89,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
             checked={checked}
             onChange={handleCheckboxChange}
           />
-          <span className="checkbox"></span>
+          <span className={styles.checkbox}></span>
         </label>
       </div>
     </div>

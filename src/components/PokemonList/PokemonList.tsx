@@ -1,5 +1,4 @@
-import './PokemonList.scss';
-import { useParams, useNavigate, useLocation } from 'react-router';
+import styles from './PokemonList.module.scss';
 import Loader from '../Loader/Loader';
 import Pagination from '../Pagination/Pagination';
 import PokemonCard from '../PokemonCard/PokemonCard';
@@ -7,15 +6,15 @@ import { useGetPokemonListQuery } from '../../store/api/pokemonApi';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearCurrentPage } from '../../store/slices/currentPageSlice';
+import { useRouter } from 'next/router';
 
 export const ITEMS_PER_PAGE = 10;
 
 export default function PokemonList() {
   const dispatch = useDispatch();
-  const { pageId } = useParams();
+  const router = useRouter();
+  const pageId = router.query.pageId as string;
   const currentPageNumber = Number(pageId) || 1;
-  const navigate = useNavigate();
-  const location = useLocation();
   const {
     data: pokemonList,
     error,
@@ -26,8 +25,8 @@ export default function PokemonList() {
   });
 
   const closePokeCard = () => {
-    if (location.pathname.includes('pokemon')) {
-      void navigate(`/page/${pageId as string}`);
+    if (router.pathname.includes('pokemon')) {
+      void router.push(`/page/${pageId}`);
     }
   };
 
@@ -36,12 +35,15 @@ export default function PokemonList() {
   }, [pageId, dispatch]);
 
   return (
-    <div className={`pokemon-list`} onClick={closePokeCard}>
+    <div className={styles['pokemon-list']} onClick={closePokeCard}>
       <h2>Pokemon examples to get you started:</h2>
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="pokemon-list__items" data-testid="pokemon-list-items">
+        <div
+          className={styles['pokemon-list__items']}
+          data-testid="pokemon-list-items"
+        >
           {pokemonList &&
             pokemonList.results.map((pokemon) => {
               return (

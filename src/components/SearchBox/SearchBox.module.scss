@@ -11,11 +11,15 @@
     font-size: 16px;
     border: 2px solid #ccc;
     border-radius: 5px;
+  }
+}
 
-    &--dark-mode {
-      background-color: $dark-mode-bg2;
-      color: white;
-      border-color: $dark-mode-bg;
-    }
+//Dark mode
+
+:global(.dark-mode) {
+  .search-container__input {
+    background-color: $dark-mode-bg2;
+    color: white;
+    border-color: $dark-mode-bg;
   }
 }

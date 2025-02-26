@@ -4,10 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  &--dark-mode {
-    color: $dark-mode-text;
-  }
 }
 
 .flyout__text {
@@ -18,7 +14,15 @@
 .flyout__buttons {
   display: flex;
 
-  .main-button {
+  * {
     transform: scale(0.8);
+  }
+}
+
+// Dark mode
+
+:global(.dark-mode) {
+  .flyout__text {
+    color: $dark-mode-text;
   }
 }

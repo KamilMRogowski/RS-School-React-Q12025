@@ -25,3 +25,22 @@
 .pokemon-card__download {
   padding: 5px;
 }
+
+// Dark mode
+
+:global(.dark-mode) {
+  .pokemon-card {
+    color: $dark-mode-text;
+    border-color: $dark-mode-bg2;
+
+    &:hover {
+      background-color: $dark-mode-bg2-hover;
+    }
+  }
+
+  .pokemon-card__download {
+    & input[type='checkbox'] {
+      accent-color: $dark-mode-bg2-hover;
+    }
+  }
+}

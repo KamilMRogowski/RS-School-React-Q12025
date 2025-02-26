@@ -13,3 +13,12 @@
   pointer-events: none;
   opacity: 0.5;
 }
+
+// Dark mode
+
+:global(.dark-mode) {
+  .current {
+    background-color: $dark-mode-bg2-hover;
+    pointer-events: none;
+  }
+}
