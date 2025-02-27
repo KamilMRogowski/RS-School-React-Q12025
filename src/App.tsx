@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router';
 import HomePage from './components/Homepage/Homepage';
-import NotFound404 from './components/NotFound404/NotFound404';
+import NotFound404 from './components/NotFound404/NotFound';
 import PokemonCardDetails from './components/PokemonCardDetails/PokemonCardDetails';
 
 export default function App() {

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function Pagination() {
   const router = useRouter();
-  const pageId = router.query.pageId;
+  const pageId = router.query.pageId as string;
   const currentPage = Number(pageId) || 1;
   return (
     <div className={styles.pagination}>

@@ -1,8 +1,8 @@
 import '../styles/index.scss';
 import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
-import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
-import DarkThemeProvider from '../context/DarkThemeContext';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary.tsx';
+import DarkThemeProvider from '../context/DarkThemeContext.tsx';
 import { setupStore } from '../store/store.ts';
 import Head from 'next/head';
 

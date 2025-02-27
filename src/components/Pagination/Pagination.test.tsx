@@ -3,12 +3,13 @@ import userEvent from '@testing-library/user-event';
 import Pagination from './Pagination';
 import { expect, it, describe } from 'vitest';
 import '@testing-library/jest-dom';
-import mockRouter from 'next-router-mock';
 import renderWithProviders from '../../utils/test-utils';
+import mockRouter from 'next-router-mock';
+import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 
 describe('Pagination Component', () => {
-  it('displays the current page correctly', async () => {
-    await mockRouter.push('/page/3');
+  it('displays the current page correctly', () => {
+    mockRouter.setCurrentUrl('/page/3');
     renderWithProviders(<Pagination />);
 
     const currentPage = screen.getByTestId('current-page');
@@ -16,16 +17,19 @@ describe('Pagination Component', () => {
   });
 
   it("disables 'Previous Page' button on page 1", () => {
+    mockRouter.setCurrentUrl('/page/1');
     renderWithProviders(<Pagination />);
 
     const prevButton = screen.getByText('Previous Page');
     expect(prevButton).toHaveAttribute('aria-disabled', 'true');
-    expect(prevButton).toHaveClass('disabled');
+    expect(prevButton).toHaveClass(/disabled/);
   });
 
   it("updates the URL when 'Next Page' is clicked", async () => {
+    mockRouter.setCurrentUrl('/page/2');
+    console.log(mockRouter.asPath);
     const user = userEvent.setup();
-    renderWithProviders(<Pagination />);
+    renderWithProviders(<Pagination />, { wrapper: MemoryRouterProvider });
 
     const nextPageButton = screen.getByText('Next Page');
     expect(nextPageButton).toHaveAttribute('href', '/page/3');
@@ -37,8 +41,9 @@ describe('Pagination Component', () => {
   });
 
   it("updates the URL when 'Previous Page' is clicked", async () => {
+    mockRouter.setCurrentUrl('/page/3');
     const user = userEvent.setup();
-    renderWithProviders(<Pagination />);
+    renderWithProviders(<Pagination />, { wrapper: MemoryRouterProvider });
 
     const prevPageButton = screen.getByText('Previous Page');
     expect(prevPageButton).toHaveAttribute('href', '/page/2');
