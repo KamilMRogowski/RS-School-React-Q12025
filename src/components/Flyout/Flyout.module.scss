@@ -9,6 +9,7 @@
 .flyout__text {
   margin: 0;
   padding: 10px;
+  color: var(--text-primary);
 }
 
 .flyout__buttons {
@@ -16,13 +17,5 @@
 
   * {
     transform: scale(0.8);
-  }
-}
-
-// Dark mode
-
-:global(.dark-mode) {
-  .flyout__text {
-    color: $dark-mode-text;
   }
 }

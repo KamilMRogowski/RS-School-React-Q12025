@@ -5,27 +5,14 @@
   height: 40px;
   width: 150px;
   font-size: 16px;
-  background-color: #dc3545;
-  color: white;
+  background-color: var(--error-button);
+  color: var(--text-button);
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #a71d2a;
-  }
-}
-
-// Dark mode
-
-:global(.dark-mode) {
-  .error-button {
-    background-color: #6b121b;
-    color: $dark-mode-text;
-
-    &:hover {
-      background-color: #7e1520;
-    }
+    background-color: var(--error-button-hover);
   }
 }

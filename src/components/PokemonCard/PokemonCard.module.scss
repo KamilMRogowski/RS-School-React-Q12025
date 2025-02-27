@@ -6,13 +6,14 @@
   height: 130px;
   padding: 10px;
   border-radius: 20px;
-  border: 2px solid black;
+  border: 2px solid var(--text-primary);
   cursor: pointer;
   text-decoration: none;
-  color: black;
+  color: var(--text-primary);
+  background-color: var(--background-primary);
 
   &:hover {
-    background-color: #ccc;
+    background-color: var(--background-secondary);
   }
 }
 
@@ -23,6 +24,7 @@
 }
 
 .pokemon-card__download {
+  color: var(--text-primary);
   padding: 5px;
 }
 
@@ -30,17 +32,15 @@
 
 :global(.dark-mode) {
   .pokemon-card {
-    color: $dark-mode-text;
-    border-color: $dark-mode-bg2;
-
+    background-color: var(--background-secondary);
+    border-color: var(--background-secondary);
     &:hover {
-      background-color: $dark-mode-bg2-hover;
+      background-color: var(--background-hover);
     }
   }
-
   .pokemon-card__download {
     & input[type='checkbox'] {
-      accent-color: $dark-mode-bg2-hover;
+      accent-color: var(--background-hover);
     }
   }
 }

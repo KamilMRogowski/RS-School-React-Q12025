@@ -4,7 +4,7 @@ import PokemonCardDetails from '../../../../components/PokemonCardDetails/Pokemo
 const Page = () => {
   return (
     <HomePage>
-      <PokemonCardDetails />;
+      <PokemonCardDetails />
     </HomePage>
   );
 };

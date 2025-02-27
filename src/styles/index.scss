@@ -1,7 +1,31 @@
+// Colors
+.light-mode {
+  --text-primary: #000000;
+  --text-button: #ffffff;
+  --background-primary: #ffffff;
+  --background-secondary: #ccc;
+  --background-hover: #535353;
+  --button-primary: #007bff;
+  --button-primary-hover: #0056b3;
+  --error-button: #dc3545;
+  --error-button-hover: #a71d2a;
+}
+
+.dark-mode {
+  --text-primary: #e2e2e2;
+  --text-button: #e2e2e2;
+  --background-primary: #212121;
+  --background-secondary: #535353;
+  --background-hover: #757575;
+  --button-primary: #535353;
+  --button-primary-hover: #757575;
+  --error-button: #6b121b;
+  --error-button-hover: #7e1520;
+}
+
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #f8f9fa;
   margin: 0;
   padding: 0;
 }
@@ -10,13 +34,15 @@ main {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
 }
 
 .main-button {
   padding: 10px 15px;
   font-size: 18px;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--button-primary);
+  color: var(--text-button);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -24,21 +50,6 @@ main {
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #0056b3;
-  }
-}
-
-//Dark mode
-
-.dark-mode {
-  background-color: $dark-mode-bg;
-  color: $dark-mode-text;
-
-  .main-button {
-    background-color: $dark-mode-bg2;
-
-    &:hover {
-      background-color: $dark-mode-bg2-hover;
-    }
+    background-color: var(--button-primary-hover);
   }
 }
