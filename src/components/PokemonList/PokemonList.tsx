@@ -40,10 +40,7 @@ export default function PokemonList() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div
-          className={styles['pokemon-list__items']}
-          data-testid="pokemon-list-items"
-        >
+        <div className={styles['list-items']} data-testid="pokemon-list-items">
           {pokemonList &&
             pokemonList.results.map((pokemon) => {
               return (

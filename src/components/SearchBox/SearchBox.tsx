@@ -29,9 +29,9 @@ export default function SearchBox() {
   };
 
   return (
-    <div className={styles['search-container']}>
+    <div className={styles['search']}>
       <input
-        className={styles['search-container__input']}
+        className={styles['search-input']}
         type="text"
         placeholder="Search your favorite pokemon"
         onChange={handleChange}

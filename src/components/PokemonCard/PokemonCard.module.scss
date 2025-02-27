@@ -17,13 +17,13 @@
   }
 }
 
-.pokemon-card__name {
+.pokemon-name {
   padding-top: 10px;
   margin: 0;
   text-transform: capitalize;
 }
 
-.pokemon-card__download {
+.pokemon-download {
   color: var(--text-primary);
   padding: 5px;
 }
@@ -38,7 +38,7 @@
       background-color: var(--background-hover);
     }
   }
-  .pokemon-card__download {
+  .pokemon-download {
     & input[type='checkbox'] {
       accent-color: var(--background-hover);
     }

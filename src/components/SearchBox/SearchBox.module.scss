@@ -1,4 +1,4 @@
-.search-container {
+.search {
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -7,7 +7,7 @@
   background-color: var(--background-primary);
   color: var(--text-primary);
 
-  &__input {
+  &-input {
     width: 20vw;
     padding: 10px;
     font-size: 16px;
@@ -19,7 +19,7 @@
 }
 
 :global(.dark-mode) {
-  .search-container__input {
+  .search-input {
     background-color: var(--background-secondary);
   }
 }

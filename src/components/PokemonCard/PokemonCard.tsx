@@ -67,7 +67,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
         href={`/page/${pageId}/pokemon/${pokemon}`}
         className={styles['pokemon-card']}
       >
-        {!error && <h3 className={styles['pokemon-card__name']}>{pokemon}</h3>}
+        {!error && <h3 className={styles['pokemon-name']}>{pokemon}</h3>}
         {isLoading || isFetching ? (
           <Loader />
         ) : error && 'data' in error ? (
@@ -81,7 +81,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
           <p>Failed to fetch image</p>
         )}
       </Link>
-      <div className={styles['pokemon-card__download']}>
+      <div className={styles['pokemon-download']}>
         <label>
           Download:
           <input

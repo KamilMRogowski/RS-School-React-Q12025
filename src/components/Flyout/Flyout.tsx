@@ -17,10 +17,10 @@ export default function Flyout() {
   if (selectedItems.length) {
     return (
       <div className={styles.flyout}>
-        <p className={styles.flyout__text}>
+        <p className={styles.text}>
           {`${String(selectedItems.length)} item${selectedItems.length > 1 ? 's' : ''} selected`}
         </p>
-        <div className={styles.flyout__buttons}>
+        <div className={styles.buttons}>
           <button className="main-button" onClick={handleUnselectAll}>
             Unselect All
           </button>
