@@ -1,14 +1,15 @@
+'use client';
 import styles from './PokemonCardDetails.module.scss';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Loader from '../Loader/Loader';
 import { useGetPokemonDetailsQuery } from '../../store/api/pokemonApi';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { useParams } from 'next/navigation';
 
 export default function PokemonCardDetails() {
-  const router = useRouter();
-  const { pokemonName, pageId } = router.query;
+  const params = useParams();
+  const { pokemonName, pageId } = params;
   const pokemonFromStore = useSelector((state: RootState) =>
     state.currentPage.currentPageItems.find(
       (pokemon) => pokemon.name === pokemonName

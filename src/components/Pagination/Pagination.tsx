@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import styles from './Pagination.module.scss';
 import Link from 'next/link';
 
 export default function Pagination() {
-  const router = useRouter();
-  const pageId = router.query.pageId as string;
+  const params = useParams();
+  const { pageId } = params;
   const currentPage = Number(pageId) || 1;
   return (
     <div className={styles.pagination}>

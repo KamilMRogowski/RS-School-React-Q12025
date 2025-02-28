@@ -10,7 +10,7 @@ import {
   removeSelectedItem,
 } from '../../store/slices/selectedItemsSlice';
 import { RootState } from '../../store/store';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 
 interface PokemonCardProps {
   pokemon: string;
@@ -21,8 +21,8 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
   const selected = useSelector((state: RootState) => {
     return state.selectedItems.SelectedItems;
   });
-  const router = useRouter();
-  const pageId = router.query.pageId as string;
+  const params = useParams();
+  const { pageId } = params;
   const dispatch = useDispatch();
   const {
     data: pokemonDetails,
@@ -64,7 +64,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
   return (
     <div>
       <Link
-        href={`/page/${pageId}/pokemon/${pokemon}`}
+        href={`/page/${String(pageId)}/pokemon/${pokemon}`}
         className={styles['pokemon-card']}
       >
         {!error && <h3 className={styles['pokemon-name']}>{pokemon}</h3>}

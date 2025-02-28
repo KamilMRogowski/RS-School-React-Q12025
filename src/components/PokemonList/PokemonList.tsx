@@ -6,14 +6,16 @@ import { useGetPokemonListQuery } from '../../store/api/pokemonApi';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearCurrentPage } from '../../store/slices/currentPageSlice';
-import { useRouter } from 'next/router';
+import { useParams, useRouter, usePathname } from 'next/navigation';
 
 export const ITEMS_PER_PAGE = 10;
 
 export default function PokemonList() {
   const dispatch = useDispatch();
+  const params = useParams();
   const router = useRouter();
-  const pageId = router.query.pageId as string;
+  const pathname = usePathname();
+  const { pageId } = params;
   const currentPageNumber = Number(pageId) || 1;
   const {
     data: pokemonList,
@@ -25,8 +27,8 @@ export default function PokemonList() {
   });
 
   const closePokeCard = () => {
-    if (router.pathname.includes('pokemon')) {
-      void router.push(`/page/${pageId}`);
+    if (pathname.includes('pokemon')) {
+      router.push(`/page/${String(pageId)}`);
     }
   };
 

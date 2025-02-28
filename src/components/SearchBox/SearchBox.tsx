@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import useGetQueryFromLS from '../../hooks/useGetQueryFromLS';
 import styles from './SearchBox.module.scss';
+import { useParams } from 'next/navigation';
 
 export default function SearchBox() {
-  const router = useRouter();
-  const { pokemonName, pageId } = router.query;
+  const params = useParams();
+  const { pokemonName, pageId } = params;
   const [query, setQuery] = useState('');
   const queryLS = useGetQueryFromLS();
 
