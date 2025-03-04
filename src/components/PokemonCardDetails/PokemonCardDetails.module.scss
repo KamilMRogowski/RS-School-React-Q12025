@@ -1,4 +1,4 @@
-.pokemon-details {
+.pokemonDetails {
   width: 250px;
   min-height: 250px;
   padding: 30px;
@@ -10,7 +10,7 @@
   color: var(--text-primary);
 }
 
-.close-button {
+.closeButton {
   align-self: end;
   width: 20px;
   height: 20px;
@@ -52,7 +52,7 @@
 }
 
 :global(.dark-mode) {
-  .pokemon-details {
+  .pokemonDetails {
     background-color: var(--background-secondary);
     border-color: var(--background-secondary);
   }
