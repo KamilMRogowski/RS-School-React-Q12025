@@ -1,4 +1,4 @@
-import { it, expect, describe } from 'vitest';
+import { it, expect, describe, Mock } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
 import { ITEMS_PER_PAGE } from './PokemonList';
 import PokemonList from './PokemonList';
@@ -6,15 +6,24 @@ import '@testing-library/jest-dom';
 import renderWithProviders from '../../utils/test-utils';
 import { server } from '../../utils/mocks/testsSetup';
 import { http, HttpResponse } from 'msw';
+import { useParams } from 'next/navigation';
 
 describe('PokemonList Component', () => {
   it('shows loading spinner while fetching data', () => {
+    (useParams as Mock).mockReturnValue({
+      pageId: '1',
+      pokemonName: 'pikachu',
+    });
     renderWithProviders(<PokemonList />);
     const loader = screen.getByTestId('loader');
     expect(loader).toBeInTheDocument();
   });
 
   it('renders specified number of cards', async () => {
+    (useParams as Mock).mockReturnValue({
+      pageId: '1',
+      pokemonName: 'pikachu',
+    });
     renderWithProviders(<PokemonList />);
 
     await waitFor(() => {
@@ -32,6 +41,10 @@ describe('PokemonList Component', () => {
       })
     );
 
+    (useParams as Mock).mockReturnValue({
+      pageId: '1',
+      pokemonName: 'pikachu',
+    });
     renderWithProviders(<PokemonList />);
 
     await waitFor(() => {

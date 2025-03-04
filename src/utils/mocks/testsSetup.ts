@@ -1,19 +1,19 @@
 import { setupServer } from 'msw/node';
 import { handlers } from './handlers';
 import { beforeAll, afterEach, afterAll, vi } from 'vitest';
-import { createDynamicRouteParser } from 'next-router-mock/dynamic-routes';
-import mockRouter from 'next-router-mock';
 
 export const server = setupServer(...handlers);
 
-vi.mock('next/router', () => import('next-router-mock'));
-
-mockRouter.useParser(
-  createDynamicRouteParser([
-    'page/[pageId]',
-    'page/[pageId]/pokemon/[pokemonName]',
-  ])
-);
+vi.mock('next/navigation', () => {
+  const actual = vi.importActual('next/navigation');
+  return {
+    // eslint-disable-next-line @typescript-eslint/no-misused-spread, @typescript-eslint/no-misused-promises
+    ...actual,
+    useParams: vi.fn(),
+    useRouter: vi.fn(),
+    usePathname: vi.fn(),
+  };
+});
 
 beforeAll(() => {
   server.listen();

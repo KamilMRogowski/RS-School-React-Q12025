@@ -4,13 +4,16 @@ import { vi, it, expect, describe, Mock } from 'vitest';
 import '@testing-library/jest-dom';
 import useGetQueryFromLS from '../../hooks/useGetQueryFromLS';
 import renderWithProviders from '../../utils/test-utils';
-import mockRouter from 'next-router-mock';
+import { useParams } from 'next/navigation';
 
 vi.mock('../../hooks/useGetQueryFromLS');
 
 describe('SearchBox Component', () => {
   it('clicking Search button redirects to correct subpage and saves to local storage', () => {
-    mockRouter.setCurrentUrl('/page/1/pokemon/pikachu');
+    (useParams as Mock).mockReturnValue({
+      pageId: '1',
+      pokemonName: 'pikachu',
+    });
     renderWithProviders(<SearchBox />);
 
     const input = screen.getByPlaceholderText('Search your favorite pokemon');

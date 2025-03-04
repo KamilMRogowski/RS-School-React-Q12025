@@ -1,20 +1,26 @@
 import { screen, waitFor } from '@testing-library/react';
 import PokemonCardDetails from './PokemonCardDetails';
-import { expect, it, describe } from 'vitest';
+import { expect, it, describe, Mock } from 'vitest';
 import '@testing-library/jest-dom';
 import renderWithProviders from '../../utils/test-utils';
-import mockRouter from 'next-router-mock';
+import { useParams } from 'next/navigation';
 
 describe('PokemonCardDetails Component', () => {
   it('displays a loading indicator while fetching data', () => {
-    mockRouter.setCurrentUrl('/pokemon/pikachu');
+    (useParams as Mock).mockReturnValue({
+      pageId: '1',
+      pokemonName: 'pikachu',
+    });
     renderWithProviders(<PokemonCardDetails />);
 
     expect(screen.getByTestId('loader')).toBeInTheDocument();
   });
 
   it('renders detailed Pokemon data correctly', async () => {
-    mockRouter.setCurrentUrl('/pokemon/pikachu');
+    (useParams as Mock).mockReturnValue({
+      pageId: '1',
+      pokemonName: 'pikachu',
+    });
     renderWithProviders(<PokemonCardDetails />);
 
     await waitFor(() => {
@@ -26,13 +32,14 @@ describe('PokemonCardDetails Component', () => {
     });
   });
 
-  it('hides component when close button is clicked', async () => {
-    mockRouter.setCurrentUrl('/page/3/pokemon/pikachu');
+  it('hides component when close button is clicked', () => {
+    (useParams as Mock).mockReturnValue({
+      pageId: '1',
+      pokemonName: 'pikachu',
+    });
     renderWithProviders(<PokemonCardDetails />);
 
-    await waitFor(() => {
-      const closeButton = screen.getByRole('link', { name: 'X' });
-      expect(closeButton).toHaveAttribute('href', '/page/3');
-    });
+    const closeButton = screen.getByRole('link', { name: 'X' });
+    expect(closeButton).toHaveAttribute('href', '/page/1');
   });
 });

@@ -15,7 +15,7 @@ export default defineConfig({
         '**/node_modules/**',
         '**/*.test.tsx',
         '**/*.spec.tsx',
-        'src/pages',
+        'src/app',
       ],
     },
     setupFiles: './src/utils/mocks/testsSetup.ts',
