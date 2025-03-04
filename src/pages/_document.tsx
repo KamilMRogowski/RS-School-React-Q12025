@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta name="description" content="Pokemon Finder" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/RS-School-React-Q12025/favicon.ico" />
       </Head>
       <body>
         <Main />

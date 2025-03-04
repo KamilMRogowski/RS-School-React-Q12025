@@ -9,7 +9,7 @@ export default function ErrorButton() {
   }
   return (
     <button
-      className={styles['error-button']}
+      className={styles.errorButton}
       onClick={() => {
         setError(true);
       }}

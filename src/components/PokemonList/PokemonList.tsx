@@ -35,12 +35,12 @@ export default function PokemonList() {
   }, [pageId, dispatch]);
 
   return (
-    <div className={styles['pokemon-list']} onClick={closePokeCard}>
+    <div className={styles.pokemonList} onClick={closePokeCard}>
       <h2>Pokemon examples to get you started:</h2>
       {isLoading ? (
         <Loader />
       ) : (
-        <div className={styles['list-items']} data-testid="pokemon-list-items">
+        <div className={styles.listItems} data-testid="pokemon-list-items">
           {pokemonList &&
             pokemonList.results.map((pokemon) => {
               return (

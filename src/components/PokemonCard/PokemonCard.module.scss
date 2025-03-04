@@ -1,4 +1,4 @@
-.pokemon-card {
+.pokemonCard {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,13 +17,13 @@
   }
 }
 
-.pokemon-name {
+.pokemonName {
   padding-top: 10px;
   margin: 0;
   text-transform: capitalize;
 }
 
-.pokemon-download {
+.pokemonDownload {
   color: var(--text-primary);
   padding: 5px;
 }
@@ -31,14 +31,14 @@
 // Dark mode
 
 :global(.dark-mode) {
-  .pokemon-card {
+  .pokemonCard {
     background-color: var(--background-secondary);
     border-color: var(--background-secondary);
     &:hover {
       background-color: var(--background-hover);
     }
   }
-  .pokemon-download {
+  .pokemonDownload {
     & input[type='checkbox'] {
       accent-color: var(--background-hover);
     }

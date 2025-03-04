@@ -26,27 +26,24 @@ export default function PokemonCardDetails() {
   const pokemonData = pokemonFromStore || pokemon;
 
   return (
-    <div className={styles['pokemon-details']}>
-      <Link
-        className={styles['close-button']}
-        href={`/page/${pageId as string}`}
-      >
+    <div className={styles.pokemonDetails}>
+      <Link className={styles.closeButton} href={`/page/${pageId as string}`}>
         X
       </Link>
       {isLoading || isFetching ? (
-        <div className={styles['error']}>
+        <div className={styles.error}>
           <Loader />
         </div>
       ) : error && 'data' in error ? (
-        <div className={styles['error']}>
+        <div className={styles.error}>
           <h3>Pokemon {pokemonName}</h3>
           <h3>{JSON.stringify(error.data).replace(/"/g, '')}</h3>
         </div>
       ) : pokemonData ? (
-        <div className={styles['details']}>
+        <div className={styles.details}>
           <h2>I choose you!</h2>
-          <h2 className={styles['name']}>{pokemonData.name}</h2>
-          <div className={styles['images']}>
+          <h2 className={styles.name}>{pokemonData.name}</h2>
+          <div className={styles.images}>
             <img
               src={pokemonData.sprites.front_default}
               alt={pokemonData.name}

@@ -1,4 +1,4 @@
-.pokemon-list {
+.pokemonList {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,7 +7,7 @@
   text-transform: capitalize;
 }
 
-.list-items {
+.listItems {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);

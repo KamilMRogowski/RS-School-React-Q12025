@@ -7,7 +7,7 @@
   background-color: var(--background-primary);
   color: var(--text-primary);
 
-  &-input {
+  &Input {
     width: 20vw;
     padding: 10px;
     font-size: 16px;
@@ -19,7 +19,7 @@
 }
 
 :global(.dark-mode) {
-  .search-input {
+  .searchInput {
     background-color: var(--background-secondary);
   }
 }
