@@ -18,10 +18,6 @@ describe('PokemonCard Component', () => {
     await waitFor(() => {
       expect(screen.getByText('pikachu')).toBeInTheDocument();
       expect(screen.getByAltText('pikachu')).toBeInTheDocument();
-      expect(screen.getByRole('img')).toHaveAttribute(
-        'src',
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png'
-      );
     });
   });
 

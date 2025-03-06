@@ -1,5 +1,6 @@
 import styles from './PokemonCard.module.scss';
 import Link from 'next/link';
+import Image from 'next/image';
 import Loader from '../Loader/Loader';
 import { useGetPokemonDetailsQuery } from '../../store/api/pokemonApi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -76,7 +77,12 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
             <h3>{JSON.stringify(error.data).replace(/"/g, '')}</h3>
           </>
         ) : pokemonDetails ? (
-          <img src={pokemonDetails.sprites.front_default} alt={pokemon} />
+          <Image
+            src={pokemonDetails.sprites.front_default as string}
+            alt={pokemon}
+            width={120}
+            height={120}
+          />
         ) : (
           <p>Failed to fetch image</p>
         )}

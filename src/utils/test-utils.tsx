@@ -3,7 +3,7 @@ import type { RenderOptions } from '@testing-library/react';
 import type React from 'react';
 import type { PropsWithChildren, JSX } from 'react';
 import { Provider } from 'react-redux';
-import { setupStore } from '../store/store';
+import { setupStoreTest } from '../store/store';
 import type { AppStore, RootState } from '../store/store';
 import DarkThemeProvider from '../context/DarkThemeContext';
 
@@ -16,7 +16,7 @@ export default function renderWithProviders(
   ui: React.ReactElement,
   {
     preloadedState = {},
-    store = setupStore(preloadedState),
+    store = setupStoreTest(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {

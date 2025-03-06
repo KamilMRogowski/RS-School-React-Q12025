@@ -7,22 +7,27 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearCurrentPage } from '../../store/slices/currentPageSlice';
 import { useRouter } from 'next/router';
+import { PokemonList as PokemonListInterface } from '../../utils/interfaces/pokemonApiResponse';
 
-export const ITEMS_PER_PAGE = 10;
+type PokemonListProps = {
+  pageId: string;
+  pokemonList?: PokemonListInterface;
+};
 
-export default function PokemonList() {
+export default function PokemonList({
+  pageId,
+  pokemonList: pokemonListFetch,
+}: PokemonListProps) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const pageId = router.query.pageId as string;
-  const currentPageNumber = Number(pageId) || 1;
-  const {
-    data: pokemonList,
-    error,
-    isLoading,
-  } = useGetPokemonListQuery({
-    offset: (currentPageNumber - 1) * ITEMS_PER_PAGE,
-    limit: ITEMS_PER_PAGE,
-  });
+  const { data, error, isLoading, isFetching } = useGetPokemonListQuery(
+    pageId,
+    {
+      skip: !!pokemonListFetch,
+    }
+  );
+
+  const pokemonList = pokemonListFetch || data;
 
   const closePokeCard = () => {
     if (router.pathname.includes('pokemon')) {
@@ -37,7 +42,7 @@ export default function PokemonList() {
   return (
     <div className={styles.pokemonList} onClick={closePokeCard}>
       <h2>Pokemon examples to get you started:</h2>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <Loader />
       ) : (
         <div className={styles.listItems} data-testid="pokemon-list-items">

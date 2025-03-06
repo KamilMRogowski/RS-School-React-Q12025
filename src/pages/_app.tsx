@@ -1,12 +1,11 @@
+/* eslint-disable react-refresh/only-export-components */
 import '../styles/index.scss';
 import { AppProps } from 'next/app';
-import { Provider } from 'react-redux';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary.tsx';
 import DarkThemeProvider from '../context/DarkThemeContext.tsx';
-import { setupStore } from '../store/store.ts';
+import { wrapper } from '../store/store.ts';
 import Head from 'next/head';
-
-const store = setupStore();
+import HomePage from '../components/Homepage/Homepage.tsx';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,13 +13,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Pokemon Finder</title>
       </Head>
-      <Provider store={store}>
-        <DarkThemeProvider>
+      <DarkThemeProvider>
+        <HomePage>
           <Component {...pageProps} />
-        </DarkThemeProvider>
-      </Provider>
+        </HomePage>
+      </DarkThemeProvider>
     </ErrorBoundary>
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
