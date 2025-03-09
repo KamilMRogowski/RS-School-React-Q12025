@@ -1,5 +1,5 @@
 import './PokemonList.scss';
-import { useParams, useNavigate, useLocation } from 'react-router';
+import { useMatch, useLocation, redirect } from 'react-router';
 import Loader from '../Loader/Loader';
 import Pagination from '../Pagination/Pagination';
 import PokemonCard from '../PokemonCard/PokemonCard';
@@ -8,26 +8,21 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearCurrentPage } from '../../store/slices/currentPageSlice';
 
-export const ITEMS_PER_PAGE = 10;
-
 export default function PokemonList() {
   const dispatch = useDispatch();
-  const { pageId } = useParams();
+  const match = useMatch('/page/:pageId');
+  const pageId = match?.params.pageId as string;
   const currentPageNumber = Number(pageId) || 1;
-  const navigate = useNavigate();
   const location = useLocation();
   const {
     data: pokemonList,
     error,
     isLoading,
-  } = useGetPokemonListQuery({
-    offset: (currentPageNumber - 1) * ITEMS_PER_PAGE,
-    limit: ITEMS_PER_PAGE,
-  });
+  } = useGetPokemonListQuery(currentPageNumber);
 
   const closePokeCard = () => {
     if (location.pathname.includes('pokemon')) {
-      void navigate(`/page/${pageId as string}`);
+      redirect(`/page/${pageId}`);
     }
   };
 

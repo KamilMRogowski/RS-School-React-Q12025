@@ -1,7 +1,7 @@
 import { it, expect, describe } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import { ITEMS_PER_PAGE } from './PokemonList';
+import { ITEMS_PER_PAGE } from '../../store/api/pokemonApi';
 import PokemonList from './PokemonList';
 import '@testing-library/jest-dom';
 import renderWithProviders from '../../utils/test-utils';

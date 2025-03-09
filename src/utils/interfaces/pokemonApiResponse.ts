@@ -1,4 +1,4 @@
-import { ITEMS_PER_PAGE } from '../../components/PokemonList/PokemonList';
+import { ITEMS_PER_PAGE } from '../../store/api/pokemonApi';
 export type PokemonApiResponse = PokemonList | Pokemon;
 
 export interface PokemonList {

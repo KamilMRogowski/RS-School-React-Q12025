@@ -1,11 +1,10 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { reactRouter } from '@react-router/dev/vite';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  base: '/RS-School-React-Q12025/',
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  plugins: [!process.env.VITEST && reactRouter()],
   test: {
     globals: true,
     environment: 'jsdom',
