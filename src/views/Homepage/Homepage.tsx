@@ -5,8 +5,13 @@ import PokemonList from '../../components/PokemonList/PokemonList';
 import Flyout from '../../components/Flyout/Flyout';
 import { Outlet } from 'react-router';
 import { useDarkTheme } from '../../context/DarkThemeContext';
+import { PokemonList as PokemonListInterface } from '../../utils/interfaces/pokemonApiResponse';
 
-export default function HomePage() {
+type HomePageProps = {
+  listData: PokemonListInterface;
+};
+
+export default function HomePage({ listData }: HomePageProps) {
   const { darkTheme, toggleTheme } = useDarkTheme();
 
   return (
@@ -19,7 +24,7 @@ export default function HomePage() {
         </label>
       </nav>
       <div className="results">
-        <PokemonList />
+        <PokemonList listData={listData} />
         <Outlet />
       </div>
       <Flyout />
