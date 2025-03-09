@@ -21,7 +21,7 @@ describe('PokemonList Component', () => {
 
   it('renders specified number of cards', async () => {
     (useParams as Mock).mockReturnValue({
-      pageId: '1',
+      pageId: '2',
       pokemonName: 'pikachu',
     });
     renderWithProviders(<PokemonList />);

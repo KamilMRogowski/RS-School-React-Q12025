@@ -7,10 +7,15 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearCurrentPage } from '../../store/slices/currentPageSlice';
 import { useParams, useRouter, usePathname } from 'next/navigation';
+import { PokemonList as PokemonListInterface } from '../../utils/interfaces/pokemonApiResponse';
 
 export const ITEMS_PER_PAGE = 10;
 
-export default function PokemonList() {
+type PokemonListProps = {
+  initialData?: PokemonListInterface;
+};
+
+export default function PokemonList({ initialData }: PokemonListProps) {
   const dispatch = useDispatch();
   const params = useParams();
   const router = useRouter();
@@ -43,7 +48,17 @@ export default function PokemonList() {
         <Loader />
       ) : (
         <div className={styles.listItems} data-testid="pokemon-list-items">
+          {initialData &&
+            pageId === '1' &&
+            initialData.results.map((pokemon) => {
+              return (
+                <div key={pokemon.name}>
+                  <PokemonCard pokemon={pokemon.name} />
+                </div>
+              );
+            })}
           {pokemonList &&
+            pageId !== '1' &&
             pokemonList.results.map((pokemon) => {
               return (
                 <div key={pokemon.name}>

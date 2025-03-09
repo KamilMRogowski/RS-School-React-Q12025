@@ -7,12 +7,14 @@ import Flyout from '../Flyout/Flyout';
 import { useDarkTheme } from '../../context/DarkThemeContext';
 import { useParams } from 'next/navigation';
 import Head from 'next/head';
+import { PokemonList as PokemonListInterface } from '../../utils/interfaces/pokemonApiResponse';
 
 type HomePageProps = {
   children?: React.ReactNode;
+  initialData?: PokemonListInterface;
 };
 
-export default function HomePage({ children }: HomePageProps) {
+export default function HomePage({ children, initialData }: HomePageProps) {
   const { darkTheme, toggleTheme } = useDarkTheme();
   const params = useParams();
   const { pokemonName } = params;
@@ -31,7 +33,7 @@ export default function HomePage({ children }: HomePageProps) {
           </label>
         </nav>
         <div className={styles.results}>
-          <PokemonList />
+          {<PokemonList initialData={initialData} />}
           {pokemonName && <>{children}</>}
         </div>
         <Flyout />
