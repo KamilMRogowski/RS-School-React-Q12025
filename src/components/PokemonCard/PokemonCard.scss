@@ -1,0 +1,27 @@
+.pokemon-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 120px;
+  height: 130px;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid black;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    background-color: #ccc;
+  }
+}
+
+.pokemon-card__name {
+  padding-top: 10px;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.pokemon-card__download {
+  padding: 5px;
+}
