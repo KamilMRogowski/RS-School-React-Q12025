@@ -34,7 +34,9 @@ export const FormValidation = z.object({
           (value) => /[\W_]/.test(value),
           'Password must contain at least 1 special character.'
         ),
-      confirmPassword: z.string(),
+      confirmPassword: z
+        .string()
+        .min(1, { message: 'Confirm password is required' }),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: 'Passwords do not match',
