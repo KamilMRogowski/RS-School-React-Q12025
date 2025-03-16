@@ -149,7 +149,6 @@ export default function ReactHookForm() {
             type="file"
             id="picture"
             accept="image/jpeg, image/png"
-            size={1024}
           />
           <div className="error-container">
             {errors.picture && (

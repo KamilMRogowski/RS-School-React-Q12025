@@ -10,12 +10,9 @@ export const FormValidation = z.object({
     .regex(/[A-Z]/, { message: 'Name must start with a capital letter' }),
   age: z
     .string()
+    .min(1, { message: 'Age is required' })
     .transform((val) => parseInt(val))
-    .pipe(
-      z
-        .number({ message: 'Age is required' })
-        .positive({ message: 'Age must be a positive number' })
-    ),
+    .pipe(z.number().positive({ message: 'Age must be a positive number' })),
   email: z.string().email({ message: 'Invalid email address' }),
   passwordForm: z
     .object({
@@ -50,14 +47,21 @@ export const FormValidation = z.object({
     z
       .instanceof(FileList)
       .transform((fileList) => fileList.item(0))
-      .pipe(
-        z
-          .instanceof(File)
-          .refine(
-            (file) => file.size <= 5 * 1024 * 1024,
-            'File size must be less than 5MB'
-          )
-      ),
+      .superRefine((file, ctx) => {
+        if (file === null) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Please select a file',
+          });
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'File size must be less than 5MB',
+          });
+        }
+      }),
     z.string(),
   ]),
   terms: z.boolean().refine((val) => val, {
@@ -69,5 +73,5 @@ export const FormValidation = z.object({
 });
 
 export type FormData = Omit<z.infer<typeof FormValidation>, 'picture'> & {
-  picture: File | string;
+  picture: File | string | null;
 };
