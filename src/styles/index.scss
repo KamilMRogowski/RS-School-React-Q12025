@@ -1,0 +1,99 @@
+// Homepage
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    margin: 8px;
+    text-decoration: none;
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #ccc;
+  }
+}
+
+// Form
+
+.form-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+fieldset {
+  width: 45%;
+  height: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 8px;
+
+  fieldset {
+    margin: 0;
+    width: 90%;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+}
+
+input {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type='radio'],
+input[type='checkbox'] {
+  width: auto;
+  margin-right: 8px;
+}
+
+button {
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 8px;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.error-container {
+  margin-top: 6px;
+  padding-left: 8px;
+  height: 20px;
+}
+
+.password-strength {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #000;
+}

@@ -1,0 +1,53 @@
+@keyframes highlightBorder {
+  0% {
+    border: 2px solid #28a745;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.3);
+  }
+  90% {
+    border: 2px solid #28a745;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.3);
+  }
+  100% {
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.data-display {
+  width: 40%;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &.updated-form {
+    animation: highlightBorder 2s ease-in-out;
+  }
+}
+
+.data-row {
+  display: flex;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e9ecef;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    flex: 0 0 150px;
+    font-weight: 600;
+    color: #495057;
+  }
+
+  .value {
+    flex: 1;
+    color: #212529;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
