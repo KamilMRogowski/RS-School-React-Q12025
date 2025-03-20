@@ -1,5 +1,5 @@
 $card-width: 280px;
-$card-height: 380px;
+$card-height: 340px;
 $flag-height: 160px;
 $color-white: white;
 $color-text: #2b3945;
@@ -20,15 +20,10 @@ $color-background-light: #f5f5f5;
   border-radius: 8px;
   @include card-shadow;
   overflow: hidden;
-  transition: transform 0.2s ease-in-out;
-  cursor: pointer;
+  cursor: default;
   width: $card-width;
   height: $card-height;
   @include flex-column;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
 
   .flag {
     width: 100%;
@@ -39,15 +34,20 @@ $color-background-light: #f5f5f5;
   }
 
   .content {
-    padding: 1.5rem;
+    padding: 1rem;
     flex-grow: 1;
     @include flex-column;
+    justify-content: space-between;
 
     .title {
-      margin: 0 0 1rem 0;
+      padding-top: 0.5rem;
       font-size: 1.25rem;
       font-weight: 600;
       color: $color-text;
+    }
+
+    .infoContainer {
+      @include flex-column;
     }
 
     .info {
