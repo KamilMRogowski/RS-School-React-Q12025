@@ -1,0 +1,22 @@
+$container-max-width: 1400px;
+$card-width: 280px;
+$color-text: #2b3945;
+
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .title {
+    font-size: 2rem;
+    color: $color-text;
+    margin-bottom: 2rem;
+  }
+
+  .countriesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($card-width, 1fr));
+    gap: 2rem;
+    justify-items: center;
+  }
+} 
