@@ -1,7 +1,6 @@
 import { Country } from "../../utils/interfaces";
 import styles from "./CountryCard.module.scss";
-
-export default function CountryCard({ country }: { country: Country }) {
+function CountryCard({ country }: { country: Country }) {
   return (
     <div className={styles.card}>
       <img
@@ -26,3 +25,5 @@ export default function CountryCard({ country }: { country: Country }) {
     </div>
   );
 }
+
+export default CountryCard;
