@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { Country, SortOrder } from "../../utils/interfaces";
-import CountryCard from "../CountryCard/CountryCard";
 import styles from "./Homepage.module.scss";
+import CountriesList from "../CountriesList/CountriesList";
 import {
   filterCountriesByRegion,
   filterCountriesByName,
@@ -21,7 +21,6 @@ export default function Homepage() {
       .then((response) => response.json())
       .then((data) => {
         setCountries(data);
-        setFilteredCountries(data);
       });
   }, []);
 
@@ -121,11 +120,7 @@ export default function Homepage() {
       {filteredCountries.length === 0 ? (
         <p className={styles.noResults}>No results found</p>
       ) : (
-        <div className={styles.countriesGrid}>
-          {filteredCountries.map((country) => (
-            <CountryCard key={country.name.common} country={country} />
-          ))}
-        </div>
+        <CountriesList countries={filteredCountries} />
       )}
     </div>
   );

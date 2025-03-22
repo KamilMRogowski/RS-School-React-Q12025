@@ -1,5 +1,4 @@
 $container-max-width: 1400px;
-$card-width: 280px;
 $color-text: #2b3945;
 $color-background: #ffffff;
 $color-border: #e2e8f0;
@@ -77,13 +76,6 @@ $color-shadow: rgba(0, 0, 0, 0.1);
     &:hover {
       background-color: #cbd5e0;
     }
-  }
-
-  .countriesGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax($card-width, 1fr));
-    gap: 2rem;
-    justify-items: center;
   }
 
   .noResults {
