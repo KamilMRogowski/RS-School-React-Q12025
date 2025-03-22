@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { Country } from "../../utils/interfaces";
+import { Country, SortOrder } from "../../utils/interfaces";
 import CountryCard from "../CountryCard/CountryCard";
 import styles from "./Homepage.module.scss";
 import {
   filterCountriesByRegion,
   filterCountriesByName,
-  sortCountriesByName,
-  sortCountriesByPopulation,
+  sortCountries,
 } from "../../utils/filters";
 
 export default function Homepage() {
@@ -15,12 +14,7 @@ export default function Homepage() {
   const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
   const [selectedRegion, setSelectedRegion] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOrderByName, setSortOrderByName] = useState<
-    "asc" | "desc" | "none"
-  >("none");
-  const [sortOrderByPopulation, setSortOrderByPopulation] = useState<
-    "asc" | "desc" | "none"
-  >("none");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("none");
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -46,22 +40,12 @@ export default function Homepage() {
       filtered = filterCountriesByName(filtered, searchQuery);
     }
 
-    if (sortOrderByName !== "none") {
-      filtered = sortCountriesByName(filtered, sortOrderByName);
-    }
-
-    if (sortOrderByPopulation !== "none") {
-      filtered = sortCountriesByPopulation(filtered, sortOrderByPopulation);
+    if (sortOrder !== "none") {
+      filtered = sortCountries(filtered, sortOrder);
     }
 
     setFilteredCountries(filtered);
-  }, [
-    countries,
-    selectedRegion,
-    searchQuery,
-    sortOrderByName,
-    sortOrderByPopulation,
-  ]);
+  }, [countries, selectedRegion, searchQuery, sortOrder]);
 
   const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRegion(e.target.value);
@@ -71,21 +55,14 @@ export default function Homepage() {
     setSearchQuery(e.target.value);
   };
 
-  const handleSortByNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortOrderByName(e.target.value as "asc" | "desc" | "none");
-  };
-
-  const handleSortByPopulationChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setSortOrderByPopulation(e.target.value as "asc" | "desc" | "none");
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortOrder(e.target.value as SortOrder);
   };
 
   const handleClearFilters = () => {
     setSelectedRegion("all");
     setSearchQuery("");
-    setSortOrderByName("none");
-    setSortOrderByPopulation("none");
+    setSortOrder("none");
   };
 
   return (
@@ -126,28 +103,12 @@ export default function Homepage() {
           <label className={styles.filterLabel} htmlFor="sort">
             Sort by name
           </label>
-          <select
-            id="sortByName"
-            value={sortOrderByName}
-            onChange={handleSortByNameChange}
-          >
+          <select id="sortByName" value={sortOrder} onChange={handleSortChange}>
             <option value="none">None</option>
-            <option value="asc">Name (ascending)</option>
-            <option value="desc">Name (descending)</option>
-          </select>
-        </div>
-        <div className={styles.filterWrapper}>
-          <label className={styles.filterLabel} htmlFor="sort">
-            Sort by population
-          </label>
-          <select
-            id="sortByPopulation"
-            value={sortOrderByPopulation}
-            onChange={handleSortByPopulationChange}
-          >
-            <option value="none">None</option>
-            <option value="asc">Population (ascending)</option>
-            <option value="desc">Population (descending)</option>
+            <option value="nameAsc">Name (ascending)</option>
+            <option value="nameDesc">Name (descending)</option>
+            <option value="populationAsc">Population (ascending)</option>
+            <option value="populationDesc">Population (descending)</option>
           </select>
         </div>
         <button

@@ -18,31 +18,22 @@ export const filterCountriesByName = (
   );
 };
 
-export const sortCountriesByName = (
+export const sortCountries = (
   countries: Country[],
-  sortOrder: "asc" | "desc" | "none"
-) => {
-  if (sortOrder === "none") return countries;
-  return countries.sort((a, b) => {
-    const nameA = a.name.common.toLowerCase();
-    const nameB = b.name.common.toLowerCase();
-    return sortOrder === "asc"
-      ? nameA.localeCompare(nameB)
-      : nameB.localeCompare(nameA);
-  });
-};
-
-export const sortCountriesByPopulation = (
-  countries: Country[],
-  sortOrder: "asc" | "desc" | "none"
-) => {
-  if (sortOrder === "none") return countries;
-
-  return countries.sort((a, b) => {
-    const populationA = a.population;
-    const populationB = b.population;
-    return sortOrder === "asc"
-      ? populationA - populationB
-      : populationB - populationA;
+  sortOrder: "populationAsc" | "populationDesc" | "nameAsc" | "nameDesc"
+): Country[] => {
+  return [...countries].sort((a, b) => {
+    switch (sortOrder) {
+      case "populationAsc":
+        return a.population - b.population;
+      case "populationDesc":
+        return b.population - a.population;
+      case "nameAsc":
+        return a.name.common.localeCompare(b.name.common);
+      case "nameDesc":
+        return b.name.common.localeCompare(a.name.common);
+      default:
+        return 0;
+    }
   });
 };

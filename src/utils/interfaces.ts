@@ -12,3 +12,9 @@ export interface Country {
   };
 }
 
+export type SortOrder =
+  | "populationAsc"
+  | "populationDesc"
+  | "nameAsc"
+  | "nameDesc"
+  | "none";
