@@ -37,3 +37,14 @@ export const sortCountries = (
     }
   });
 };
+
+export const toggleVisitedCountry = (country: Country): boolean => {
+  const countryFromLocalStorage = localStorage.getItem(country.name.common);
+  if (countryFromLocalStorage) {
+    localStorage.removeItem(country.name.common);
+    return false;
+  } else {
+    localStorage.setItem(country.name.common, JSON.stringify(country));
+    return true;
+  }
+};

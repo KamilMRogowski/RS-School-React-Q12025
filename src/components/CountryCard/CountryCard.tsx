@@ -1,8 +1,21 @@
 import { Country } from "../../utils/interfaces";
 import styles from "./CountryCard.module.scss";
+import { toggleVisitedCountry } from "../../utils/filters";
+import { useState } from "react";
 function CountryCard({ country }: { country: Country }) {
+  const [isVisited, setIsVisited] = useState(toggleVisitedCountry(country));
+
+  const handleCardClick = (country: Country) => {
+    toggleVisitedCountry(country);
+    setIsVisited(!isVisited);
+  };
+
   return (
-    <div className={styles.card}>
+    <div
+      className={`${styles.card} ${isVisited ? styles.isVisited : ""}`}
+      onClick={() => handleCardClick(country)}
+    >
+      {isVisited && <div className={styles.visitedBadge}>Visited</div>}
       <img
         src={country.flags.png}
         alt={country.name.common}
