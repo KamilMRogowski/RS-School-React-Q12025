@@ -1,7 +1,8 @@
 import { Country } from "../../utils/interfaces";
 import styles from "./CountryCard.module.scss";
 import { toggleVisitedCountry } from "../../utils/filters";
-import { useState } from "react";
+import { memo, useState } from "react";
+
 function CountryCard({ country }: { country: Country }) {
   const [isVisited, setIsVisited] = useState(toggleVisitedCountry(country));
 
@@ -39,4 +40,4 @@ function CountryCard({ country }: { country: Country }) {
   );
 }
 
-export default CountryCard;
+export default memo(CountryCard);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useEffect } from "react";
 import { Country, SortOrder } from "../../utils/interfaces";
 import styles from "./Homepage.module.scss";
@@ -11,7 +11,6 @@ import {
 
 export default function Homepage() {
   const [countries, setCountries] = useState<Country[]>([]);
-  const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
   const [selectedRegion, setSelectedRegion] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState<SortOrder>("none");
@@ -24,11 +23,11 @@ export default function Homepage() {
       });
   }, []);
 
-  const regions = [
-    ...new Set(countries.map((country) => country.region)),
-  ].sort();
+  const regions = useMemo(() => {
+    return [...new Set(countries.map((country) => country.region))].sort();
+  }, [countries]);
 
-  useEffect(() => {
+  const filteredCountries = useMemo(() => {
     let filtered = [...countries];
 
     if (selectedRegion !== "all") {
@@ -43,26 +42,32 @@ export default function Homepage() {
       filtered = sortCountries(filtered, sortOrder);
     }
 
-    setFilteredCountries(filtered);
+    return filtered;
   }, [countries, selectedRegion, searchQuery, sortOrder]);
 
-  const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedRegion(e.target.value);
-  };
+  const handleRegionChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setSelectedRegion(e.target.value);
+    },
+    []
+  );
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-  };
+  }, []);
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortOrder(e.target.value as SortOrder);
-  };
+  const handleSortChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setSortOrder(e.target.value as SortOrder);
+    },
+    []
+  );
 
-  const handleClearFilters = () => {
+  const handleClearFilters = useCallback(() => {
     setSelectedRegion("all");
     setSearchQuery("");
     setSortOrder("none");
-  };
+  }, []);
 
   return (
     <div className={styles.container}>

@@ -1,8 +1,9 @@
 import { Country } from "../../utils/interfaces";
 import CountryCard from "../CountryCard/CountryCard";
 import styles from "./CountriesList.module.scss";
+import { memo } from "react";
 
-export default function CountriesList({ countries }: { countries: Country[] }) {
+function CountriesList({ countries }: { countries: Country[] }) {
   return (
     <div className={styles.countriesList}>
       {countries.map((country) => (
@@ -11,3 +12,5 @@ export default function CountriesList({ countries }: { countries: Country[] }) {
     </div>
   );
 }
+
+export default memo(CountriesList);
